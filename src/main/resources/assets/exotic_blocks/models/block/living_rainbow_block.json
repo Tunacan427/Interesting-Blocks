@@ -1,0 +1,6 @@
+{
+	"parent" : "block/cube_all",
+	"textures" : {
+		"all" : "exotic_blocks:block/living_rainbow_block"
+	}
+}
