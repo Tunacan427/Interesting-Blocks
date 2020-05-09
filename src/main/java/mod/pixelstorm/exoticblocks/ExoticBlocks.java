@@ -2,7 +2,9 @@ package mod.pixelstorm.exoticblocks;
 
 import mod.pixelstorm.exoticblocks.block.*;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
+import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -23,7 +25,7 @@ public class ExoticBlocks implements ModInitializer
 	{
 		log(Level.INFO, "Initializing");
 
-		registerBlock("living_rainbow_block", new LivingRainbowBlock());
+		registerBlock("living_rainbow_block", new LivingRainbowBlock(FabricBlockSettings.of(Material.STONE).strength(1.8F)));
 	}
 
 	public void registerBlock(String identifier, Block block)
