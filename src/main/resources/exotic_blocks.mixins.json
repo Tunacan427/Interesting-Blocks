@@ -1,11 +1,13 @@
 {
-  "required": true,
-  "package": "mod.pixelstorm.exoticblocks.mixin",
-  "compatibilityLevel": "JAVA_8",
-  "mixins": [],
-  "client": [],
-  "server": [],
-  "injectors": {
-    "defaultRequire": 1
-  }
+	"required" : true,
+	"package" : "mod.pixelstorm.exoticblocks.mixin",
+	"compatibilityLevel" : "JAVA_8",
+	"mixins" : [],
+	"client" : [
+		"MixinBuiltinModelItemRenderer"
+	],
+	"server" : [],
+	"injectors" : {
+		"defaultRequire" : 1
+	}
 }
