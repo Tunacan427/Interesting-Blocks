@@ -1,5 +1,5 @@
 {
 	"textures" : {
-		"particle" : "entity/end_portal"
+		"particle" : "exotic_blocks:particle/end_portal"
 	}
 }
