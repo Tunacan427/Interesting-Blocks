@@ -7,6 +7,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
@@ -23,6 +25,27 @@ public class CosmeticEndPortalBlock extends BlockWithEntity
 	public BlockEntity createBlockEntity(BlockView blockView)
 	{
 		return new CosmeticEndPortalBlockEntity();
+	}
+
+	@Override
+	public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player)
+	{
+		super.onBreak(world, pos, state, player);
+
+		if(!world.isClient)
+			return;
+
+		for(int i = 0; i < 24; ++i)
+		{
+			double x = pos.getX() + world.random.nextDouble();
+			double y = pos.getY() + world.random.nextDouble();
+			double z = pos.getZ() + world.random.nextDouble();
+
+			double velX = world.random.nextDouble() * 2 - 1;
+			double velY = world.random.nextDouble() * 2 - 1;
+			double velZ = world.random.nextDouble() * 2 - 1;
+			world.addParticle(ParticleTypes.SMOKE, x, y, z, velX * 0.1, velY * 0.1, velZ * 0.1);
+		}
 	}
 
 	@Override

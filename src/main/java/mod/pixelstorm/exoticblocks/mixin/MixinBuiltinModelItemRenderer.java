@@ -26,6 +26,7 @@ public class MixinBuiltinModelItemRenderer
 		{
 			if(((BlockItem) itemStack.getItem()).getBlock() == Registry.BLOCK.get(new Identifier(ExoticBlocks.MOD_ID, "cosmetic_end_portal_block")))
 			{
+				// TODO: Investigate effects of passing in different distances?
 				EndPortalRenderer.render(matrix, vertexConsumerProvider, 1.0D);
 				callbackInfo.cancel();
 			}

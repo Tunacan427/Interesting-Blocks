@@ -13,6 +13,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.Level;
@@ -31,7 +32,7 @@ public class ExoticBlocks implements ModInitializer
 	{
 		registerBlock("living_rainbow_block", new LivingRainbowBlock(FabricBlockSettings.of(Material.STONE).strength(1.8F).lightLevel(9)));
 		registerBlockEntity("cosmetic_end_portal_block",
-							new CosmeticEndPortalBlock(FabricBlockSettings.of(Material.PORTAL).lightLevel(15).strength(0.8F)),
+							new CosmeticEndPortalBlock(FabricBlockSettings.of(Material.PORTAL).lightLevel(15).strength(0.8F).sounds(BlockSoundGroup.WOOL)),
 							CosmeticEndPortalBlockEntity::new,
 							(blockEntityType) -> CosmeticEndPortalBlockEntity.blockEntityType = blockEntityType);
 
