@@ -37,13 +37,16 @@ public class CosmeticEndPortalBlock extends BlockWithEntity
 
 		for(int i = 0; i < 24; ++i)
 		{
+			// Spawn particles at random points within the block's bounds
 			double x = pos.getX() + world.random.nextDouble();
 			double y = pos.getY() + world.random.nextDouble();
 			double z = pos.getZ() + world.random.nextDouble();
 
+			// Random velocities in range of -1 to +1
 			double velX = world.random.nextDouble() * 2 - 1;
 			double velY = world.random.nextDouble() * 2 - 1;
 			double velZ = world.random.nextDouble() * 2 - 1;
+
 			world.addParticle(ParticleTypes.SMOKE, x, y, z, velX * 0.1, velY * 0.1, velZ * 0.1);
 		}
 	}
