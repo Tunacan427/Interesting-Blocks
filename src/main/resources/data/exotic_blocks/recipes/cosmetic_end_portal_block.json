@@ -14,6 +14,7 @@
 		}
 	},
 	"result" : {
-		"item" : "exotic_blocks:cosmetic_end_portal_block"
+		"item" : "exotic_blocks:cosmetic_end_portal_block",
+		"count" : 4
 	}
 }
