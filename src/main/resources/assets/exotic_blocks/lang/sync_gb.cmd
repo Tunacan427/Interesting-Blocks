@@ -1,0 +1,1 @@
+cat en_gb.json > en_au.json & cat en_gb.json > en_ca.json & cat en_gb.json > en_nz.json & cat en_gb.json > en_us.json
