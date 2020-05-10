@@ -1,0 +1,21 @@
+{
+	"type" : "minecraft:crafting_shaped",
+	"group" : "exotic_blocks",
+	"pattern" : [
+		"OOO",
+		"OFO",
+		"OOO"
+	],
+	"key" : {
+		"O" : {
+			"item" : "minecraft:obsidian"
+		},
+		"F" : {
+			"item" : "minecraft:flint_and_steel"
+		}
+	},
+	"result" : {
+		"item" : "exotic_blocks:cosmetic_nether_portal_block",
+		"count" : 8
+	}
+}
