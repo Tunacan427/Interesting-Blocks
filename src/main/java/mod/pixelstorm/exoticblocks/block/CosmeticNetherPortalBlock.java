@@ -44,28 +44,4 @@ public class CosmeticNetherPortalBlock extends TransparentBlock
 			world.addParticle(ParticleTypes.PORTAL, x, y, z, velX, velY, velZ);
 		}
 	}
-
-	@Override
-	public boolean isTranslucent(BlockState state, BlockView view, BlockPos pos)
-	{
-		return true;
-	}
-
-	@Override
-	public boolean canSuffocate(BlockState state, BlockView view, BlockPos pos)
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isSimpleFullBlock(BlockState state, BlockView view, BlockPos pos)
-	{
-		return false;
-	}
-
-	@Override
-	public boolean allowsSpawning(BlockState state, BlockView view, BlockPos pos, EntityType type)
-	{
-		return false;
-	}
 }
