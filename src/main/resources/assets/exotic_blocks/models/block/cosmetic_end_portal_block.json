@@ -1,5 +1,5 @@
 {
 	"textures" : {
-		"particle" : "block/obsidian"
+		"particle" : "entity/end_portal"
 	}
 }
