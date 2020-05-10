@@ -31,6 +31,7 @@ public class ExoticBlocks implements ModInitializer
 	public void onInitialize()
 	{
 		registerBlock("living_rainbow_block", new LivingRainbowBlock(FabricBlockSettings.of(Material.STONE).strength(1.8F).lightLevel(9)));
+
 		registerBlockEntity("cosmetic_end_portal_block",
 							new CosmeticEndPortalBlock(FabricBlockSettings.of(Material.PORTAL).lightLevel(15).strength(0.8F).sounds(BlockSoundGroup.WOOL)),
 							CosmeticEndPortalBlockEntity::new,
