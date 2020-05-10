@@ -1,0 +1,5 @@
+{
+	"variants" : {
+		"" : { "model" : "exotic_blocks:block/cosmetic_nether_portal_block" }
+	}
+}
