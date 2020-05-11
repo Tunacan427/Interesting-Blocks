@@ -2,7 +2,6 @@ package mod.pixelstorm.exoticblocks;
 
 import java.util.function.Function;
 import mod.pixelstorm.exoticblocks.ExoticBlocks;
-import mod.pixelstorm.exoticblocks.block.entity.CosmeticEndPortalBlockEntity;
 import mod.pixelstorm.exoticblocks.client.render.block.entity.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;

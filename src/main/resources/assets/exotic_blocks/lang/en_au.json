@@ -1,5 +1,6 @@
 {
 	"block.exotic_blocks.living_rainbow_block" : "Living Rainbow Block",
 	"block.exotic_blocks.cosmetic_end_portal_block" : "Cosmetic End Portal Block",
-	"block.exotic_blocks.cosmetic_nether_portal_block" : "Cosmetic Nether Portal Block"
+	"block.exotic_blocks.cosmetic_nether_portal_block" : "Cosmetic Nether Portal Block",
+	"block.exotic_blocks.inverted_block" : "Inverted Block"
 }

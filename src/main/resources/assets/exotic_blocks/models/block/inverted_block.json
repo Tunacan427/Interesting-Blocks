@@ -1,0 +1,20 @@
+{
+	"parent" : "block/cube_all",
+	"textures" : {
+		"all" : "block/white_concrete"
+	},
+	"elements" : [
+		{
+			"from" : [ 16, 16, 16 ],
+			"to" : [ 0, 0, 0 ],
+			"faces" : {
+				"down" :	{ "uv" : [ 16, 16, 0, 0 ], "texture" : "#all", "cullface" : "up"	},
+				"up" :		{ "uv" : [ 16, 16, 0, 0 ], "texture" : "#all", "cullface" : "down"	},
+				"north" :	{ "uv" : [ 16, 16, 0, 0 ], "texture" : "#all", "cullface" : "south"	},
+				"south" :	{ "uv" : [ 16, 16, 0, 0 ], "texture" : "#all", "cullface" : "north"	},
+				"west" :	{ "uv" : [ 16, 16, 0, 0 ], "texture" : "#all", "cullface" : "east"	},
+				"east" :	{ "uv" : [ 16, 16, 0, 0 ], "texture" : "#all", "cullface" : "west"	}
+			}
+		}
+	]
+}
