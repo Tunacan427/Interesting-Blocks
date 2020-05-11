@@ -2,20 +2,20 @@
 	"type" : "minecraft:crafting_shaped",
 	"group" : "exotic_blocks",
 	"pattern" : [
-		" G ",
-		"GCG",
-		" G "
+		"OOO",
+		"OFO",
+		"OOO"
 	],
 	"key" : {
-		"G" : {
-			"item" : "minecraft:glass"
+		"O" : {
+			"item" : "minecraft:obsidian"
 		},
-		"C" : {
-			"item" : "minecraft:white_concrete_powder"
+		"F" : {
+			"item" : "minecraft:flint_and_steel"
 		}
 	},
 	"result" : {
-		"item" : "exotic_blocks:inverted_block",
-		"count" : 5
+		"item" : "exotic_blocks:cosmetic_nether_portal_block",
+		"count" : 8
 	}
 }
