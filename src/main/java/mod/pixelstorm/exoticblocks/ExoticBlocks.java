@@ -34,6 +34,8 @@ public class ExoticBlocks implements ModInitializer
 		registerBlock("cosmetic_nether_portal_block", new CosmeticNetherPortalBlock(FabricBlockSettings.of(Material.PORTAL).lightLevel(11).strength(0.8F).noCollision().sounds(BlockSoundGroup.GLASS)));
 		registerBlock("inverted_block", new InvertedBlock(FabricBlockSettings.of(Material.STONE).strength(1.8F).nonOpaque()));
 
+		registerBlock("white_hardlight_block", new HardlightBlock(FabricBlockSettings.of(Material.STONE).strength(1.8F).lightLevel(9)));
+
 		registerBlockEntity("cosmetic_end_portal_block",
 							new CosmeticEndPortalBlock(FabricBlockSettings.of(Material.PORTAL).lightLevel(15).strength(0.8F).sounds(BlockSoundGroup.WOOL)),
 							CosmeticEndPortalBlockEntity::new,
