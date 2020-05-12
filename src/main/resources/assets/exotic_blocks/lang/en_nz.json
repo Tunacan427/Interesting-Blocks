@@ -1,6 +1,23 @@
 {
-	"block.exotic_blocks.living_rainbow_block" : "Living Rainbow Block",
+	"itemGroup.exotic_blocks.cosmetic" : "Exotic Blocks",
 	"block.exotic_blocks.cosmetic_end_portal_block" : "Cosmetic End Portal Block",
 	"block.exotic_blocks.cosmetic_nether_portal_block" : "Cosmetic Nether Portal Block",
-	"block.exotic_blocks.inverted_block" : "Inverted Block"
+	"block.exotic_blocks.inverted_block" : "Inverted Block",
+	"block.exotic_blocks.hardlight.living_rainbow" : "Living Rainbow Block",
+	"block.exotic_blocks.hardlight.black" : "Black Hardlight Block",
+	"block.exotic_blocks.hardlight.blue" : "Blue Hardlight Block",
+	"block.exotic_blocks.hardlight.brown" : "Brown Hardlight Block",
+	"block.exotic_blocks.hardlight.cyan" : "Cyan Hardlight Block",
+	"block.exotic_blocks.hardlight.gray" : "Gray Hardlight Block",
+	"block.exotic_blocks.hardlight.green" : "Green Hardlight Block",
+	"block.exotic_blocks.hardlight.light_blue" : "Light Blue Hardlight Block",
+	"block.exotic_blocks.hardlight.light_gray" : "Light Gray Hardlight Block",
+	"block.exotic_blocks.hardlight.lime" : "Lime Hardlight Block",
+	"block.exotic_blocks.hardlight.magenta" : "Magenta Hardlight Block",
+	"block.exotic_blocks.hardlight.orange" : "Orange Hardlight Block",
+	"block.exotic_blocks.hardlight.pink" : "Pink Hardlight Block",
+	"block.exotic_blocks.hardlight.purple" : "Purple Hardlight Block",
+	"block.exotic_blocks.hardlight.red" : "Red Hardlight Block",
+	"block.exotic_blocks.hardlight.white" : "White Hardlight Block",
+	"block.exotic_blocks.hardlight.yellow" : "Yellow Hardlight Block"
 }
