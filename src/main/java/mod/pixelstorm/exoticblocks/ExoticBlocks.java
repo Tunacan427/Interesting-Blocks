@@ -64,7 +64,7 @@ public class ExoticBlocks implements ModInitializer
 
 		items.add(registerBlock("inverted_block", new InvertedBlock()));
 
-		items.add(registerBlock("living_rainbow_block", new HardlightBlock(HardlightBlock.DEFAULT_SETTINGS.lightLevel(6))));
+		items.add(registerBlock("hardlight/living_rainbow", new HardlightBlock(HardlightBlock.DEFAULT_SETTINGS.lightLevel(6))));
 		items.add(registerBlock("hardlight/black", new HardlightBlock()));
 		items.add(registerBlock("hardlight/blue", new HardlightBlock()));
 		items.add(registerBlock("hardlight/brown", new HardlightBlock()));
