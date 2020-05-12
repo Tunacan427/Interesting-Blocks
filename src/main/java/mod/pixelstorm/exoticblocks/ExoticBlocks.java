@@ -1,10 +1,13 @@
 package mod.pixelstorm.exoticblocks;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import mod.pixelstorm.exoticblocks.block.*;
 import mod.pixelstorm.exoticblocks.block.entity.*;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
@@ -12,6 +15,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
@@ -30,33 +34,65 @@ public class ExoticBlocks implements ModInitializer
 	@Override
 	public void onInitialize()
 	{
-		registerBlock("cosmetic_nether_portal_block", new CosmeticNetherPortalBlock(FabricBlockSettings.of(Material.PORTAL).lightLevel(11).strength(0.8F).noCollision().sounds(BlockSoundGroup.GLASS)));
-		registerBlock("inverted_block", new InvertedBlock(FabricBlockSettings.of(Material.STONE).strength(1.8F).nonOpaque()));
+		log(Level.INFO, "Starting initialization.");
 
-		registerBlock("living_rainbow_block", new HardlightBlock());
-		registerBlock("hardlight/black", new HardlightBlock());
-		registerBlock("hardlight/blue", new HardlightBlock());
-		registerBlock("hardlight/brown", new HardlightBlock());
-		registerBlock("hardlight/cyan", new HardlightBlock());
-		registerBlock("hardlight/gray", new HardlightBlock());
-		registerBlock("hardlight/green", new HardlightBlock());
-		registerBlock("hardlight/light_blue", new HardlightBlock());
-		registerBlock("hardlight/light_gray", new HardlightBlock());
-		registerBlock("hardlight/lime", new HardlightBlock());
-		registerBlock("hardlight/magenta", new HardlightBlock());
-		registerBlock("hardlight/orange", new HardlightBlock());
-		registerBlock("hardlight/pink", new HardlightBlock());
-		registerBlock("hardlight/purple", new HardlightBlock());
-		registerBlock("hardlight/red", new HardlightBlock());
-		registerBlock("hardlight/white", new HardlightBlock());
-		registerBlock("hardlight/yellow", new HardlightBlock());
-
-		registerBlockEntity("cosmetic_end_portal_block",
-							new CosmeticEndPortalBlock(FabricBlockSettings.of(Material.PORTAL).lightLevel(15).strength(0.8F).sounds(BlockSoundGroup.WOOL)),
-							CosmeticEndPortalBlockEntity::new,
-							(blockEntityType) -> CosmeticEndPortalBlockEntity.blockEntityType = blockEntityType);
+		registerItemGroup("cosmetic", registerBlocks(), 0);
 
 		log(Level.INFO, "Finished initialization.");
+	}
+
+	private ItemGroup registerItemGroup(String identifier, List<ItemStack> items, int iconIndex)
+	{
+		return registerItemGroup(identifier, items, items.get(iconIndex));
+	}
+
+	private ItemGroup registerItemGroup(String identifier, List<ItemStack> items, ItemStack icon)
+	{
+		if(items.isEmpty())
+			log(Level.WARN, "Itemgroup '" + identifier + "' recieved no items!");
+		else
+			log(Level.INFO, "Registering itemgroup '" + identifier + "' with " + items.size() + " items.");
+
+		return FabricItemGroupBuilder.create(new Identifier(MOD_ID, identifier))
+											.icon(() -> icon)
+											.appendItems(stacks -> stacks.addAll(items))
+											.build();
+	}
+
+	private List<ItemStack> registerBlocks()
+	{
+		List<ItemStack> items = new ArrayList<ItemStack>(20);
+
+		items.add(registerBlock("cosmetic_nether_portal_block", new CosmeticNetherPortalBlock(FabricBlockSettings.of(Material.PORTAL).lightLevel(11).strength(0.8F).noCollision().sounds(BlockSoundGroup.GLASS))));
+
+		items.add(registerBlock("inverted_block", new InvertedBlock(FabricBlockSettings.of(Material.STONE).strength(1.8F).nonOpaque())));
+
+		items.add(registerBlock("living_rainbow_block", new HardlightBlock()));
+		items.add(registerBlock("hardlight/black", new HardlightBlock()));
+		items.add(registerBlock("hardlight/blue", new HardlightBlock()));
+		items.add(registerBlock("hardlight/brown", new HardlightBlock()));
+		items.add(registerBlock("hardlight/cyan", new HardlightBlock()));
+		items.add(registerBlock("hardlight/gray", new HardlightBlock()));
+		items.add(registerBlock("hardlight/green", new HardlightBlock()));
+		items.add(registerBlock("hardlight/light_blue", new HardlightBlock()));
+		items.add(registerBlock("hardlight/light_gray", new HardlightBlock()));
+		items.add(registerBlock("hardlight/lime", new HardlightBlock()));
+		items.add(registerBlock("hardlight/magenta", new HardlightBlock()));
+		items.add(registerBlock("hardlight/orange", new HardlightBlock()));
+		items.add(registerBlock("hardlight/pink", new HardlightBlock()));
+		items.add(registerBlock("hardlight/purple", new HardlightBlock()));
+		items.add(registerBlock("hardlight/red", new HardlightBlock()));
+		items.add(registerBlock("hardlight/white", new HardlightBlock()));
+		items.add(registerBlock("hardlight/yellow", new HardlightBlock()));
+
+		items.add(registerBlockEntity("cosmetic_end_portal_block",
+							new CosmeticEndPortalBlock(FabricBlockSettings.of(Material.PORTAL).lightLevel(15).strength(0.8F).sounds(BlockSoundGroup.WOOL)),
+							CosmeticEndPortalBlockEntity::new,
+							(blockEntityType) -> CosmeticEndPortalBlockEntity.blockEntityType = blockEntityType));
+
+		log(Level.INFO, "Registered " + items.size() + " blocks.");
+
+		return items;
 	}
 
 	private ItemStack registerBlock(String identifier, Block block)
