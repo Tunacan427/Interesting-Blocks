@@ -8,6 +8,7 @@ import mod.pixelstorm.exoticblocks.block.*;
 import mod.pixelstorm.exoticblocks.block.entity.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -64,7 +65,6 @@ public class ExoticBlocks implements ModInitializer
 
 		items.add(registerBlock("inverted_block", new InvertedBlock()));
 
-		items.add(registerBlock("hardlight/living_rainbow", new HardlightBlock(HardlightBlock.DEFAULT_SETTINGS.lightLevel(6))));
 		items.add(registerBlock("hardlight/black", new HardlightBlock()));
 		items.add(registerBlock("hardlight/blue", new HardlightBlock()));
 		items.add(registerBlock("hardlight/brown", new HardlightBlock()));
@@ -82,11 +82,13 @@ public class ExoticBlocks implements ModInitializer
 		items.add(registerBlock("hardlight/white", new HardlightBlock()));
 		items.add(registerBlock("hardlight/yellow", new HardlightBlock()));
 
-		items.add(registerBlock("hardlight/shadow", new HardlightBlock()));
-		items.add(registerBlock("hardlight/light", new HardlightBlock()));
-		items.add(registerBlock("hardlight/vivid_red", new HardlightBlock()));
-		items.add(registerBlock("hardlight/vivid_green", new HardlightBlock()));
-		items.add(registerBlock("hardlight/vivid_blue", new HardlightBlock()));
+		FabricBlockSettings vividSettings = HardlightBlock.DEFAULT_SETTINGS.lightLevel(6);
+		items.add(registerBlock("hardlight/living_rainbow", new HardlightBlock(vividSettings)));
+		items.add(registerBlock("hardlight/shadow", new HardlightBlock(vividSettings)));
+		items.add(registerBlock("hardlight/light", new HardlightBlock(vividSettings)));
+		items.add(registerBlock("hardlight/vivid_red", new HardlightBlock(vividSettings)));
+		items.add(registerBlock("hardlight/vivid_green", new HardlightBlock(vividSettings)));
+		items.add(registerBlock("hardlight/vivid_blue", new HardlightBlock(vividSettings)));
 
 		items.add(registerBlockEntity("cosmetic_end_portal_block",
 							new CosmeticEndPortalBlock(),

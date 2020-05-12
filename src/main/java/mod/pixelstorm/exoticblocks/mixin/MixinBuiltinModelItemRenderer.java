@@ -2,7 +2,6 @@ package mod.pixelstorm.exoticblocks.mixin;
 
 import mod.pixelstorm.exoticblocks.ExoticBlocks;
 import mod.pixelstorm.exoticblocks.client.render.EndPortalRenderer;
-import net.minecraft.block.Block;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.BuiltinModelItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
