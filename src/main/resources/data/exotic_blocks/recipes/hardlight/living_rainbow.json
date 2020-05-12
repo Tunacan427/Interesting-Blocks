@@ -32,7 +32,7 @@
 		}
 	},
 	"result" : {
-		"item" : "exotic_blocks:living_rainbow_block",
+		"item" : "exotic_blocks:hardlight/living_rainbow",
 		"count" : 6
 	}
 }
