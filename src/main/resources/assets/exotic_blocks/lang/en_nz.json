@@ -19,5 +19,10 @@
 	"block.exotic_blocks.hardlight.purple" : "Purple Hardlight Block",
 	"block.exotic_blocks.hardlight.red" : "Red Hardlight Block",
 	"block.exotic_blocks.hardlight.white" : "White Hardlight Block",
-	"block.exotic_blocks.hardlight.yellow" : "Yellow Hardlight Block"
+	"block.exotic_blocks.hardlight.yellow" : "Yellow Hardlight Block",
+	"block.exotic_blocks.hardlight.light" : "Hardlight Block",
+	"block.exotic_blocks.hardlight.shadow" : "Hardshadow Block",
+	"block.exotic_blocks.hardlight.vivid_red" : "Vivid Red Hardlight Block",
+	"block.exotic_blocks.hardlight.vivid_green" : "Vivid Green Hardlight Block",
+	"block.exotic_blocks.hardlight.vivid_blue" : "Vivid Blue Hardlight Block"
 }

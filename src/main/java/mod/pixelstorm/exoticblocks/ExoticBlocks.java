@@ -82,6 +82,12 @@ public class ExoticBlocks implements ModInitializer
 		items.add(registerBlock("hardlight/white", new HardlightBlock()));
 		items.add(registerBlock("hardlight/yellow", new HardlightBlock()));
 
+		items.add(registerBlock("hardlight/shadow", new HardlightBlock()));
+		items.add(registerBlock("hardlight/light", new HardlightBlock()));
+		items.add(registerBlock("hardlight/vivid_red", new HardlightBlock()));
+		items.add(registerBlock("hardlight/vivid_green", new HardlightBlock()));
+		items.add(registerBlock("hardlight/vivid_blue", new HardlightBlock()));
+
 		items.add(registerBlockEntity("cosmetic_end_portal_block",
 							new CosmeticEndPortalBlock(),
 							CosmeticEndPortalBlockEntity::new,
