@@ -1,6 +1,6 @@
 {
 	"type" : "minecraft:crafting_shaped",
-	"group" : "exotic_blocks",
+	"group" : "exotic_blocks/hardlight",
 	"pattern" : [
 		"DSD",
 		"SGS",
