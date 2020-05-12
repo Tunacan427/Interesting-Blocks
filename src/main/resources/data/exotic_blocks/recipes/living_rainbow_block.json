@@ -1,30 +1,38 @@
 {
-	"type" : "minecraft:crafting_shapeless",
-	"ingredients" : [
-		{
-			"item" : "minecraft:red_dye"
-		},
-		{
-			"item" : "minecraft:green_dye"
-		},
-		{
-			"item" : "minecraft:blue_dye"
-		},
-		{
-			"item" : "minecraft:white_concrete"
-		},
-		{
-			"item" : "minecraft:white_concrete"
-		},
-		{
-			"item" : "minecraft:white_concrete"
-		},
-		{
-			"item" : "minecraft:white_concrete"
-		}
+	"type" : "minecraft:crafting_shaped",
+	"pattern" : [
+		"ROG",
+		"LSL",
+		"CBP"
 	],
+	"key" : {
+		"R" : {
+			"item" : "exotic_blocks:hardlight/red"
+		},
+		"O" : {
+			"item" : "exotic_blocks:hardlight/orange"
+		},
+		"G" : {
+			"item" : "exotic_blocks:hardlight/green"
+		},
+		"C" : {
+			"item" : "exotic_blocks:hardlight/cyan"
+		},
+		"B" : {
+			"item" : "exotic_blocks:hardlight/blue"
+		},
+		"P" : {
+			"item" : "exotic_blocks:hardlight/purple"
+		},
+		"L" : {
+			"item" : "minecraft:glass"
+		},
+		"S" : {
+			"item" : "minecraft:glowstone"
+		}
+	},
 	"result" : {
 		"item" : "exotic_blocks:living_rainbow_block",
-		"count" : 4
+		"count" : 6
 	}
 }
