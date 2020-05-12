@@ -1,0 +1,24 @@
+{
+	"type" : "minecraft:crafting_shaped",
+	"group" : "exotic_blocks",
+	"pattern" : [
+		"DSD",
+		"SGS",
+		"DSD"
+	],
+	"key" : {
+		"D" : {
+			"item" : "minecraft:green_dye"
+		},
+		"S" : {
+			"item" : "minecraft:green_stained_glass"
+		},
+		"G" : {
+			"item" : "minecraft:glowstone"
+		}
+	},
+	"result" : {
+		"item" : "exotic_blocks:hardlight/green",
+		"count" : 5
+	}
+}

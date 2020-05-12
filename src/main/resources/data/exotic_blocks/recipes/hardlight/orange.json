@@ -1,0 +1,24 @@
+{
+	"type" : "minecraft:crafting_shaped",
+	"group" : "exotic_blocks",
+	"pattern" : [
+		"DSD",
+		"SGS",
+		"DSD"
+	],
+	"key" : {
+		"D" : {
+			"item" : "minecraft:orange_dye"
+		},
+		"S" : {
+			"item" : "minecraft:orange_stained_glass"
+		},
+		"G" : {
+			"item" : "minecraft:glowstone"
+		}
+	},
+	"result" : {
+		"item" : "exotic_blocks:hardlight/orange",
+		"count" : 5
+	}
+}

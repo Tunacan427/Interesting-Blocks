@@ -1,0 +1,24 @@
+{
+	"type" : "minecraft:crafting_shaped",
+	"group" : "exotic_blocks",
+	"pattern" : [
+		"DSD",
+		"SGS",
+		"DSD"
+	],
+	"key" : {
+		"D" : {
+			"item" : "minecraft:cyan_dye"
+		},
+		"S" : {
+			"item" : "minecraft:cyan_stained_glass"
+		},
+		"G" : {
+			"item" : "minecraft:glowstone"
+		}
+	},
+	"result" : {
+		"item" : "exotic_blocks:hardlight/cyan",
+		"count" : 5
+	}
+}
