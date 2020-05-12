@@ -30,11 +30,26 @@ public class ExoticBlocks implements ModInitializer
 	@Override
 	public void onInitialize()
 	{
-		registerBlock("living_rainbow_block", new LivingRainbowBlock(FabricBlockSettings.of(Material.STONE).strength(1.8F).lightLevel(9)));
 		registerBlock("cosmetic_nether_portal_block", new CosmeticNetherPortalBlock(FabricBlockSettings.of(Material.PORTAL).lightLevel(11).strength(0.8F).noCollision().sounds(BlockSoundGroup.GLASS)));
 		registerBlock("inverted_block", new InvertedBlock(FabricBlockSettings.of(Material.STONE).strength(1.8F).nonOpaque()));
 
-		registerBlock("white_hardlight_block", new HardlightBlock(FabricBlockSettings.of(Material.STONE).strength(1.8F).lightLevel(9)));
+		registerBlock("living_rainbow_block", new HardlightBlock());
+		registerBlock("hardlight/black", new HardlightBlock());
+		registerBlock("hardlight/blue", new HardlightBlock());
+		registerBlock("hardlight/brown", new HardlightBlock());
+		registerBlock("hardlight/cyan", new HardlightBlock());
+		registerBlock("hardlight/gray", new HardlightBlock());
+		registerBlock("hardlight/green", new HardlightBlock());
+		registerBlock("hardlight/light_blue", new HardlightBlock());
+		registerBlock("hardlight/light_gray", new HardlightBlock());
+		registerBlock("hardlight/lime", new HardlightBlock());
+		registerBlock("hardlight/magenta", new HardlightBlock());
+		registerBlock("hardlight/orange", new HardlightBlock());
+		registerBlock("hardlight/pink", new HardlightBlock());
+		registerBlock("hardlight/purple", new HardlightBlock());
+		registerBlock("hardlight/red", new HardlightBlock());
+		registerBlock("hardlight/white", new HardlightBlock());
+		registerBlock("hardlight/yellow", new HardlightBlock());
 
 		registerBlockEntity("cosmetic_end_portal_block",
 							new CosmeticEndPortalBlock(FabricBlockSettings.of(Material.PORTAL).lightLevel(15).strength(0.8F).sounds(BlockSoundGroup.WOOL)),
