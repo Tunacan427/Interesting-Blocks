@@ -3,19 +3,27 @@ package mod.pixelstorm.exoticblocks.block;
 import java.util.Random;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
 import net.minecraft.block.TransparentBlock;
-import net.minecraft.entity.EntityType;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class CosmeticNetherPortalBlock extends TransparentBlock
 {
+	public static final FabricBlockSettings DEFAULT_SETTINGS = FabricBlockSettings.of(Material.PORTAL).lightLevel(11).strength(0.8F).noCollision().sounds(BlockSoundGroup.GLASS);
+
+	public CosmeticNetherPortalBlock()
+	{
+		super(DEFAULT_SETTINGS);
+	}
+
 	public CosmeticNetherPortalBlock(Block.Settings settings)
 	{
 		super(settings);

@@ -4,18 +4,27 @@ import java.util.Random;
 import mod.pixelstorm.exoticblocks.block.entity.CosmeticEndPortalBlockEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class CosmeticEndPortalBlock extends BlockWithEntity
 {
+	public static final FabricBlockSettings DEFAULT_SETTINGS = FabricBlockSettings.of(Material.PORTAL).lightLevel(15).strength(0.8F).sounds(BlockSoundGroup.WOOL);
+
+	public CosmeticEndPortalBlock()
+	{
+		super(DEFAULT_SETTINGS);
+	}
+
 	public CosmeticEndPortalBlock(Settings settings)
 	{
 		super(settings);

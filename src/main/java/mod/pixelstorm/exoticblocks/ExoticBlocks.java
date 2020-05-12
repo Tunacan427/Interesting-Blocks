@@ -8,16 +8,13 @@ import mod.pixelstorm.exoticblocks.block.*;
 import mod.pixelstorm.exoticblocks.block.entity.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
-import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.Level;
@@ -63,9 +60,9 @@ public class ExoticBlocks implements ModInitializer
 	{
 		List<ItemStack> items = new ArrayList<ItemStack>(20);
 
-		items.add(registerBlock("cosmetic_nether_portal_block", new CosmeticNetherPortalBlock(FabricBlockSettings.of(Material.PORTAL).lightLevel(11).strength(0.8F).noCollision().sounds(BlockSoundGroup.GLASS))));
+		items.add(registerBlock("cosmetic_nether_portal_block", new CosmeticNetherPortalBlock()));
 
-		items.add(registerBlock("inverted_block", new InvertedBlock(FabricBlockSettings.of(Material.STONE).strength(1.8F).nonOpaque())));
+		items.add(registerBlock("inverted_block", new InvertedBlock()));
 
 		items.add(registerBlock("living_rainbow_block", new HardlightBlock(HardlightBlock.DEFAULT_SETTINGS.lightLevel(6))));
 		items.add(registerBlock("hardlight/black", new HardlightBlock()));
@@ -86,7 +83,7 @@ public class ExoticBlocks implements ModInitializer
 		items.add(registerBlock("hardlight/yellow", new HardlightBlock()));
 
 		items.add(registerBlockEntity("cosmetic_end_portal_block",
-							new CosmeticEndPortalBlock(FabricBlockSettings.of(Material.PORTAL).lightLevel(15).strength(0.8F).sounds(BlockSoundGroup.WOOL)),
+							new CosmeticEndPortalBlock(),
 							CosmeticEndPortalBlockEntity::new,
 							(blockEntityType) -> CosmeticEndPortalBlockEntity.blockEntityType = blockEntityType));
 
