@@ -10,9 +10,11 @@ import net.minecraft.sound.BlockSoundGroup;
 
 public class HardlightBlock extends Block
 {
+	public static final Settings DEFAULT_SETTINGS = FabricBlockSettings.of(Material.STONE).strength(1.8F).lightLevel(3).sounds(BlockSoundGroup.GLASS);
+
 	public HardlightBlock()
 	{
-		super(FabricBlockSettings.of(Material.STONE).strength(1.8F).lightLevel(3).sounds(BlockSoundGroup.GLASS));
+		super(DEFAULT_SETTINGS);
 	}
 
 	public HardlightBlock(Settings settings)
