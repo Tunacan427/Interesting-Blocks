@@ -36,7 +36,7 @@ public class ExoticBlocks implements ModInitializer
 	{
 		log(Level.INFO, "Starting initialization.");
 
-		registerItemGroup("cosmetic", registerBlocks(), 0);
+		registerItemGroup("cosmetic", registerBlocks(), 19);
 
 		log(Level.INFO, "Finished initialization.");
 	}
