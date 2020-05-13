@@ -25,7 +25,7 @@ public class MixinBuiltinModelItemRenderer
 		{
 			if(((BlockItem) itemStack.getItem()).getBlock() == Registry.BLOCK.get(new Identifier(ExoticBlocks.MOD_ID, "cosmetic_end_portal_block")))
 			{
-				EndPortalRenderer.render(matrix, vertexConsumerProvider, 257);
+				EndPortalRenderer.render(matrix, vertexConsumerProvider, 0);
 				callbackInfo.cancel();
 			}
 		}
