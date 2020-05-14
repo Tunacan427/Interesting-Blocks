@@ -1,21 +1,23 @@
-#Gradle
+langfile_sync.cmd
+
+# Gradle
 .gradle/
 build/
 out/
 classes/
 
-#IDEA
+# IDEA
 .idea/
 *.iml
 *.ipr
 *.iws
 
-#vscode
+# vscode
 .settings/
 .vscode/
 bin/
 .classpath
 .project
 
-#fabric
+# fabric
 run/
