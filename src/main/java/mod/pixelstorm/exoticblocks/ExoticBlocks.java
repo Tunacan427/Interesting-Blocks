@@ -63,7 +63,23 @@ public class ExoticBlocks implements ModInitializer
 
 		items.add(registerBlock("cosmetic_nether_portal_block", new CosmeticNetherPortalBlock()));
 
-		items.add(registerBlock("inverted_block", new InvertedBlock()));
+		items.add(registerBlock("inverted/black", new InvertedBlock()));
+		items.add(registerBlock("inverted/blue", new InvertedBlock()));
+		items.add(registerBlock("inverted/brown", new InvertedBlock()));
+		items.add(registerBlock("inverted/cyan", new InvertedBlock()));
+		items.add(registerBlock("inverted/gray", new InvertedBlock()));
+		items.add(registerBlock("inverted/green", new InvertedBlock()));
+		items.add(registerBlock("inverted/light_blue", new InvertedBlock()));
+		items.add(registerBlock("inverted/light_gray", new InvertedBlock()));
+		items.add(registerBlock("inverted/lime", new InvertedBlock()));
+		items.add(registerBlock("inverted/magenta", new InvertedBlock()));
+		items.add(registerBlock("inverted/orange", new InvertedBlock()));
+		items.add(registerBlock("inverted/pink", new InvertedBlock()));
+		items.add(registerBlock("inverted/purple", new InvertedBlock()));
+		items.add(registerBlock("inverted/red", new InvertedBlock()));
+		items.add(registerBlock("inverted/white", new InvertedBlock()));
+		items.add(registerBlock("inverted/yellow", new InvertedBlock()));
+		items.add(registerBlock("inverted/living_rainbow", new InvertedBlock()));
 
 		items.add(registerBlock("hardlight/black", new HardlightBlock()));
 		items.add(registerBlock("hardlight/blue", new HardlightBlock()));

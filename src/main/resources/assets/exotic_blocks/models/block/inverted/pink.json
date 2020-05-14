@@ -1,0 +1,6 @@
+{
+	"parent" : "exotic_blocks:block/inverted/inverted",
+	"textures" : {
+		"colour" : "exotic_blocks:block/colour/pink"
+	}
+}
