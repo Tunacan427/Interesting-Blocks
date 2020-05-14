@@ -24,7 +24,8 @@ public class InvertedBlock extends TransparentBlock
 	}
 
 	@Environment(EnvType.CLIENT)
-	public float getAmbientOcclusionLightLevel(BlockState state, BlockView view, BlockPos pos) {
+	public float getAmbientOcclusionLightLevel(BlockState state, BlockView view, BlockPos pos)
+	{
 		return 1.0F;
 	}
 }
