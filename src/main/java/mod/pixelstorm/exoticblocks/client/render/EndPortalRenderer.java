@@ -44,15 +44,15 @@ public class EndPortalRenderer
 		float red = (RANDOM.nextFloat() * 0.5F + 0.1F) * colourScalar;
 		float green = (RANDOM.nextFloat() * 0.5F + 0.4F) * colourScalar;
 		float blue = (RANDOM.nextFloat() * 0.5F + 0.5F) * colourScalar;
-		renderSide(matrix, vertexConsumer, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, red, green, blue); // Direction.NORTH
-		renderSide(matrix, vertexConsumer, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, red, green, blue); // Direction.EAST
-		renderSide(matrix, vertexConsumer, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, red, green, blue); // Direction.SOUTH
-		renderSide(matrix, vertexConsumer, 0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F, red, green, blue); // Direction.WEST
-		renderSide(matrix, vertexConsumer, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, red, green, blue); // Direction.DOWN
-		renderSide(matrix, vertexConsumer, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, red, green, blue); // Direction.UP
+		renderFace(matrix, vertexConsumer, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, red, green, blue); // Direction.NORTH
+		renderFace(matrix, vertexConsumer, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, red, green, blue); // Direction.EAST
+		renderFace(matrix, vertexConsumer, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, red, green, blue); // Direction.SOUTH
+		renderFace(matrix, vertexConsumer, 0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F, red, green, blue); // Direction.WEST
+		renderFace(matrix, vertexConsumer, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, red, green, blue); // Direction.DOWN
+		renderFace(matrix, vertexConsumer, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, red, green, blue); // Direction.UP
 	}
 
-	private static void renderSide(Matrix4f matrix, VertexConsumer vertexConsumer, float x1, float x2, float y1, float y2, float z1, float z2, float z3, float z4, float red, float green, float blue)
+	private static void renderFace(Matrix4f matrix, VertexConsumer vertexConsumer, float x1, float x2, float y1, float y2, float z1, float z2, float z3, float z4, float red, float green, float blue)
 	{
 		vertexConsumer.vertex(matrix, x1, y1, z1).color(red, green, blue, 1.0F).next();
 		vertexConsumer.vertex(matrix, x2, y1, z2).color(red, green, blue, 1.0F).next();
