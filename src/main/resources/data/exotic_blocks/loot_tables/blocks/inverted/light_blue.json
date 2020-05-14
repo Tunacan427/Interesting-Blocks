@@ -6,7 +6,7 @@
 			"entries" : [
 				{
 					"type" : "minecraft:item",
-					"name" : "exotic_blocks:inverted_block"
+					"name" : "exotic_blocks:inverted/light_blue"
 				}
 			],
 			"conditions" : [

@@ -1,0 +1,36 @@
+{
+	"type" : "minecraft:crafting_shaped",
+	"group" : "exotic_blocks/inverted",
+	"pattern" : [
+		"ROG",
+		"L L",
+		"CBP"
+	],
+	"key" : {
+		"R" : {
+			"item" : "exotic_blocks:inverted/red"
+		},
+		"O" : {
+			"item" : "exotic_blocks:inverted/orange"
+		},
+		"G" : {
+			"item" : "exotic_blocks:inverted/green"
+		},
+		"C" : {
+			"item" : "exotic_blocks:inverted/cyan"
+		},
+		"B" : {
+			"item" : "exotic_blocks:inverted/blue"
+		},
+		"P" : {
+			"item" : "exotic_blocks:inverted/purple"
+		},
+		"L" : {
+			"item" : "minecraft:glass"
+		}
+	},
+	"result" : {
+		"item" : "exotic_blocks:inverted/living_rainbow",
+		"count" : 6
+	}
+}

@@ -1,0 +1,21 @@
+{
+	"type" : "minecraft:crafting_shaped",
+	"group" : "exotic_blocks/inverted",
+	"pattern" : [
+		" G ",
+		"GCG",
+		" G "
+	],
+	"key" : {
+		"G" : {
+			"item" : "minecraft:glass"
+		},
+		"C" : {
+			"item" : "minecraft:brown_concrete_powder"
+		}
+	},
+	"result" : {
+		"item" : "exotic_blocks:inverted/brown",
+		"count" : 5
+	}
+}
