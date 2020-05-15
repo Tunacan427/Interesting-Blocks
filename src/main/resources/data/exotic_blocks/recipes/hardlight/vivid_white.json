@@ -8,17 +8,17 @@
 	],
 	"key" : {
 		"D" : {
-			"item" : "minecraft:black_dye"
+			"item" : "minecraft:white_dye"
 		},
 		"S" : {
-			"item" : "exotic_blocks:hardlight/black"
+			"item" : "exotic_blocks:hardlight/white"
 		},
 		"G" : {
 			"item" : "minecraft:glowstone"
 		}
 	},
 	"result" : {
-		"item" : "exotic_blocks:hardlight/shadow",
+		"item" : "exotic_blocks:hardlight/vivid_white",
 		"count" : 5
 	}
 }

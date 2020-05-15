@@ -100,8 +100,8 @@ public class ExoticBlocks implements ModInitializer
 
 		FabricBlockSettings vividSettings = HardlightBlock.DEFAULT_SETTINGS.lightLevel(6);
 		items.add(registerBlock("hardlight/living_rainbow", new HardlightBlock(vividSettings)));
-		items.add(registerBlock("hardlight/shadow", new HardlightBlock(vividSettings)));
-		items.add(registerBlock("hardlight/light", new HardlightBlock(vividSettings)));
+		items.add(registerBlock("hardlight/vivid_black", new HardlightBlock(vividSettings)));
+		items.add(registerBlock("hardlight/vivid_white", new HardlightBlock(vividSettings)));
 		items.add(registerBlock("hardlight/vivid_red", new HardlightBlock(vividSettings)));
 		items.add(registerBlock("hardlight/vivid_green", new HardlightBlock(vividSettings)));
 		items.add(registerBlock("hardlight/vivid_blue", new HardlightBlock(vividSettings)));
