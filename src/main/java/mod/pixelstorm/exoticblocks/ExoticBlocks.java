@@ -61,8 +61,6 @@ public class ExoticBlocks implements ModInitializer
 	{
 		List<ItemStack> items = new ArrayList<ItemStack>(20);
 
-		items.add(registerBlock("cosmetic_nether_portal_block", new CosmeticNetherPortalBlock()));
-
 		items.add(registerBlock("inverted/black", new InvertedBlock()));
 		items.add(registerBlock("inverted/blue", new InvertedBlock()));
 		items.add(registerBlock("inverted/brown", new InvertedBlock()));
@@ -105,6 +103,8 @@ public class ExoticBlocks implements ModInitializer
 		items.add(registerBlock("hardlight/vivid_red", new HardlightBlock(vividSettings)));
 		items.add(registerBlock("hardlight/vivid_green", new HardlightBlock(vividSettings)));
 		items.add(registerBlock("hardlight/vivid_blue", new HardlightBlock(vividSettings)));
+
+		items.add(registerBlock("cosmetic_nether_portal_block", new CosmeticNetherPortalBlock()));
 
 		items.add(registerBlockEntity("cosmetic_end_portal_block",
 							new CosmeticEndPortalBlock(),
