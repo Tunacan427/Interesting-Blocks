@@ -2,7 +2,7 @@ package mod.pixelstorm.exoticblocks.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
@@ -12,11 +12,11 @@ import net.minecraft.world.BlockView;
 
 public class InvertedBlock extends Block
 {
-	public static final FabricBlockSettings DEFAULT_SETTINGS = FabricBlockSettings.of(Material.STONE).strength(1.8F).nonOpaque();
+	public static final FabricBlockSettings DEFAULT_SETTINGS = FabricBlockSettings.of(Material.STONE).strength(1.8F, 1.8F);
 
 	public InvertedBlock()
 	{
-		super(DEFAULT_SETTINGS);
+		super(DEFAULT_SETTINGS.build());
 	}
 
 	public InvertedBlock(Settings settings)
