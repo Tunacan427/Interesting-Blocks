@@ -1,5 +1,3 @@
-langfile_sync.cmd
-
 # Gradle
 .gradle/
 build/
