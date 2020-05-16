@@ -3,9 +3,7 @@ package mod.pixelstorm.exoticblocks.mixin;
 import mod.pixelstorm.exoticblocks.ExoticBlocks;
 import mod.pixelstorm.exoticblocks.block.entity.CosmeticEndPortalBlockEntity;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.item.BuiltinModelItemRenderer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -16,13 +14,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.apache.logging.log4j.Level;
 
-@Mixin(ItemRenderer.class)
-public class MixinItemRenderer
+@Mixin(BuiltinModelItemRenderer.class)
+public class MixinBuiltinModelItemRenderer
 {
 	private final CosmeticEndPortalBlockEntity renderEndPortalBlock = new CosmeticEndPortalBlockEntity();
 
-	@Inject(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/BakedModel;Lnet/minecraft/client/render/model/json/ModelTransformation$Type;Z)V", at = @At("HEAD"), cancellable = true)
-	private void onRenderItem(ItemStack stack, BakedModel model, ModelTransformation.Type type, boolean bl, CallbackInfo callbackInfo)
+	@Inject(method = "render", at = @At("HEAD"), cancellable = true)
+	private void onRender(ItemStack stack, CallbackInfo callbackInfo)
 	{
 		if(stack.getItem() instanceof BlockItem)
 		{
