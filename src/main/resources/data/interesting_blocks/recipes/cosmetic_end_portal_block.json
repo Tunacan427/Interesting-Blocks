@@ -1,0 +1,20 @@
+{
+	"type" : "minecraft:crafting_shaped",
+	"pattern" : [
+		" S ",
+		"SES",
+		" S "
+	],
+	"key" : {
+		"E" : {
+			"item" : "minecraft:ender_eye"
+		},
+		"S" : {
+			"item" : "minecraft:end_stone"
+		}
+	},
+	"result" : {
+		"item" : "interesting_blocks:cosmetic_end_portal_block",
+		"count" : 4
+	}
+}

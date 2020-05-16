@@ -1,0 +1,13 @@
+{
+	"required" : true,
+	"package" : "mod.pixelstorm.interestingblocks.mixin",
+	"compatibilityLevel" : "JAVA_8",
+	"mixins" : [],
+	"client" : [
+		"MixinBuiltinModelItemRenderer"
+	],
+	"server" : [],
+	"injectors" : {
+		"defaultRequire" : 1
+	}
+}

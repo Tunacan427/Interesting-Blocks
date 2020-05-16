@@ -1,0 +1,38 @@
+{
+	"type" : "minecraft:crafting_shaped",
+	"pattern" : [
+		"ROG",
+		"LSL",
+		"CBP"
+	],
+	"key" : {
+		"R" : {
+			"item" : "interesting_blocks:hardlight/red"
+		},
+		"O" : {
+			"item" : "interesting_blocks:hardlight/orange"
+		},
+		"G" : {
+			"item" : "interesting_blocks:hardlight/green"
+		},
+		"C" : {
+			"item" : "interesting_blocks:hardlight/cyan"
+		},
+		"B" : {
+			"item" : "interesting_blocks:hardlight/blue"
+		},
+		"P" : {
+			"item" : "interesting_blocks:hardlight/purple"
+		},
+		"L" : {
+			"item" : "minecraft:glass"
+		},
+		"S" : {
+			"item" : "minecraft:glowstone"
+		}
+	},
+	"result" : {
+		"item" : "interesting_blocks:hardlight/living_rainbow",
+		"count" : 6
+	}
+}

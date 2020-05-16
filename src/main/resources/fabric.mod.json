@@ -1,8 +1,8 @@
 {
   "schemaVersion" : 1,
-  "id" : "exotic_blocks",
+  "id" : "interesting_blocks",
   "version" : "${version}",
-  "name" : "Exotic Blocks",
+  "name" : "Interesting Blocks",
   "description" : "A collection of blocks with interesting properties.",
   "authors" : [
     "Pixelstorm"
@@ -10,19 +10,19 @@
   "contributors" : [],
   "contact" : {},
   "license" : "Apache-2.0",
-  "icon" : "assets/exotic_blocks/icon.png",
+  "icon" : "assets/interesting_blocks/icon.png",
   "environment" : "*",
   "entrypoints" : {
     "main" : [
-      "mod.pixelstorm.exoticblocks.ExoticBlocks"
+      "mod.pixelstorm.interestingblocks.InterestingBlocks"
     ],
     "client" : [
-      "mod.pixelstorm.exoticblocks.ExoticBlocksClient"
+      "mod.pixelstorm.interestingblocks.InterestingBlocksClient"
     ],
     "server" : []
   },
   "mixins" : [
-    "exotic_blocks.mixins.json"
+    "interesting_blocks.mixins.json"
   ],
   "depends" : {
     "fabricloader" : ">=0.4.0",
