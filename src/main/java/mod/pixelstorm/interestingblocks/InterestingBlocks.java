@@ -7,8 +7,8 @@ import java.util.function.Supplier;
 import mod.pixelstorm.interestingblocks.block.*;
 import mod.pixelstorm.interestingblocks.block.entity.*;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -96,7 +96,7 @@ public class InterestingBlocks implements ModInitializer
 		items.add(registerBlock("hardlight/white", new HardlightBlock()));
 		items.add(registerBlock("hardlight/yellow", new HardlightBlock()));
 
-		FabricBlockSettings vividSettings = HardlightBlock.DEFAULT_SETTINGS.lightLevel(6);
+		Block.Settings vividSettings = HardlightBlock.DEFAULT_SETTINGS.lightLevel(6).build();
 		items.add(registerBlock("hardlight/living_rainbow", new HardlightBlock(vividSettings)));
 		items.add(registerBlock("hardlight/vivid_black", new HardlightBlock(vividSettings)));
 		items.add(registerBlock("hardlight/vivid_white", new HardlightBlock(vividSettings)));
@@ -132,7 +132,7 @@ public class InterestingBlocks implements ModInitializer
 		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, identifier), block);
 
 		// Register BlockEntity
-		BlockEntityType blockEntityType = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, identifier), BlockEntityType.Builder.create(blockEntitySupplier, block).build(null));
+		BlockEntityType blockEntityType = Registry.register(Registry.BLOCK_ENTITY, new Identifier(MOD_ID, identifier), BlockEntityType.Builder.create(blockEntitySupplier, block).build(null));
 
 		blockEntityConsumer.accept(blockEntityType);
 

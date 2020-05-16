@@ -1,10 +1,9 @@
 package mod.pixelstorm.interestingblocks.mixin;
 
 import mod.pixelstorm.interestingblocks.InterestingBlocks;
-import mod.pixelstorm.interestingblocks.client.render.EndPortalRenderer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import mod.pixelstorm.interestingblocks.block.entity.CosmeticEndPortalBlockEntity;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.item.BuiltinModelItemRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -18,14 +17,16 @@ import org.apache.logging.log4j.Level;
 @Mixin(BuiltinModelItemRenderer.class)
 public class MixinBuiltinModelItemRenderer
 {
+	private final CosmeticEndPortalBlockEntity renderEndPortalBlock = new CosmeticEndPortalBlockEntity();
+
 	@Inject(method = "render", at = @At("HEAD"), cancellable = true)
-	private void render(ItemStack itemStack, MatrixStack matrix, VertexConsumerProvider vertexConsumerProvider, int light, int overlay, CallbackInfo callbackInfo)
+	private void onRender(ItemStack stack, CallbackInfo callbackInfo)
 	{
-		if(itemStack.getItem() instanceof BlockItem)
+		if(stack.getItem() instanceof BlockItem)
 		{
-			if(((BlockItem) itemStack.getItem()).getBlock() == Registry.BLOCK.get(new Identifier(InterestingBlocks.MOD_ID, "cosmetic_end_portal_block")))
+			if(((BlockItem) stack.getItem()).getBlock() == Registry.BLOCK.get(new Identifier(InterestingBlocks.MOD_ID, "cosmetic_end_portal_block")))
 			{
-				EndPortalRenderer.render(matrix, vertexConsumerProvider, 0);
+				BlockEntityRenderDispatcher.INSTANCE.renderEntity(renderEndPortalBlock);
 				callbackInfo.cancel();
 			}
 		}
