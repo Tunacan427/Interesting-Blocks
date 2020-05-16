@@ -21,6 +21,9 @@ public class CosmeticEndPortalBlockEntity extends EndPortalBlockEntity
 	@Environment(EnvType.CLIENT)
 	public boolean shouldDrawSide(Direction direction)
 	{
+		if(world == null)
+			return false;
+
 		BlockState state = world.getBlockState(getPos());
 		return state.getBlock().shouldDrawSide(state, (BlockView) world, getPos(), direction);
 	}

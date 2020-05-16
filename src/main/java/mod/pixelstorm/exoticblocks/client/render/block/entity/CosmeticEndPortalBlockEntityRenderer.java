@@ -1,6 +1,7 @@
 package mod.pixelstorm.exoticblocks.client.render.block.entity;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.util.Random;
 import mod.pixelstorm.exoticblocks.block.entity.CosmeticEndPortalBlockEntity;
@@ -170,9 +171,9 @@ public class CosmeticEndPortalBlockEntityRenderer extends BlockEntityRenderer<Co
 
 	private FloatBuffer method_3593(float f, float g, float h, float i)
 	{
-		field_4403.clear();
+		((Buffer) field_4403).clear();
 		field_4403.put(f).put(g).put(h).put(i);
-		field_4403.flip();
+		((Buffer) field_4403).flip();
 		return field_4403;
 	}
 }
