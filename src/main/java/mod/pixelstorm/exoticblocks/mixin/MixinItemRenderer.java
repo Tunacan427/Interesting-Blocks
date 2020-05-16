@@ -19,18 +19,18 @@ import org.apache.logging.log4j.Level;
 @Mixin(ItemRenderer.class)
 public class MixinItemRenderer
 {
-	private final CosmeticEndPortalBlockEntity renderEndPortalBlock = new CosmeticEndPortalBlockEntity();
+	// private final CosmeticEndPortalBlockEntity renderEndPortalBlock = new CosmeticEndPortalBlockEntity();
 
-	@Inject(method = "renderItem", at = @At("HEAD"), cancellable = true)
-	protected void renderItem(ItemStack stack, BakedModel model, ModelTransformation.Type type, boolean bl, CallbackInfo callbackInfo)
+	@Inject(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/BakedModel;Lnet/minecraft/client/render/model/json/ModelTransformation$Type;Z)V", at = @At("HEAD"), cancellable = true)
+	private void onRenderItem(ItemStack stack, BakedModel model, ModelTransformation.Type type, boolean bl, CallbackInfo callbackInfo)
 	{
-		if(stack.getItem() instanceof BlockItem)
-		{
-			if(((BlockItem) stack.getItem()).getBlock() == Registry.BLOCK.get(new Identifier(ExoticBlocks.MOD_ID, "cosmetic_end_portal_block")))
-			{
-				BlockEntityRenderDispatcher.INSTANCE.renderEntity(renderEndPortalBlock);
-				callbackInfo.cancel();
-			}
-		}
+		// if(stack.getItem() instanceof BlockItem)
+		// {
+		// 	if(((BlockItem) stack.getItem()).getBlock() == Registry.BLOCK.get(new Identifier(ExoticBlocks.MOD_ID, "cosmetic_end_portal_block")))
+		// 	{
+		// 		// BlockEntityRenderDispatcher.INSTANCE.renderEntity(renderEndPortalBlock);
+		// 		callbackInfo.cancel();
+		// 	}
+		// }
 	}
 }
