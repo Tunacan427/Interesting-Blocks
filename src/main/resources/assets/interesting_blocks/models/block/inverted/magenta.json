@@ -1,0 +1,6 @@
+{
+	"parent" : "interesting_blocks:block/inverted/inverted",
+	"textures" : {
+		"colour" : "interesting_blocks:block/colour/magenta"
+	}
+}

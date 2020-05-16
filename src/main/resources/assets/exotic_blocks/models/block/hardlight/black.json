@@ -1,6 +1,0 @@
-{
-	"parent" : "exotic_blocks:block/hardlight/hardlight",
-	"textures" : {
-		"colour" : "exotic_blocks:block/colour/black"
-	}
-}

@@ -1,0 +1,36 @@
+{
+	"type" : "minecraft:crafting_shaped",
+	"group" : "interesting_blocks/inverted",
+	"pattern" : [
+		"ROG",
+		"L L",
+		"CBP"
+	],
+	"key" : {
+		"R" : {
+			"item" : "interesting_blocks:inverted/red"
+		},
+		"O" : {
+			"item" : "interesting_blocks:inverted/orange"
+		},
+		"G" : {
+			"item" : "interesting_blocks:inverted/green"
+		},
+		"C" : {
+			"item" : "interesting_blocks:inverted/cyan"
+		},
+		"B" : {
+			"item" : "interesting_blocks:inverted/blue"
+		},
+		"P" : {
+			"item" : "interesting_blocks:inverted/purple"
+		},
+		"L" : {
+			"item" : "minecraft:glass"
+		}
+	},
+	"result" : {
+		"item" : "interesting_blocks:inverted/living_rainbow",
+		"count" : 6
+	}
+}

@@ -1,0 +1,24 @@
+{
+	"type" : "minecraft:crafting_shaped",
+	"group" : "interesting_blocks/hardlight",
+	"pattern" : [
+		"DSD",
+		"SGS",
+		"DSD"
+	],
+	"key" : {
+		"D" : {
+			"item" : "minecraft:brown_dye"
+		},
+		"S" : {
+			"item" : "minecraft:brown_stained_glass"
+		},
+		"G" : {
+			"item" : "minecraft:glowstone"
+		}
+	},
+	"result" : {
+		"item" : "interesting_blocks:hardlight/brown",
+		"count" : 4
+	}
+}

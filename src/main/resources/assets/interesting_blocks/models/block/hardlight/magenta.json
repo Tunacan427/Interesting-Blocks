@@ -1,0 +1,6 @@
+{
+	"parent" : "interesting_blocks:block/hardlight/hardlight",
+	"textures" : {
+		"colour" : "interesting_blocks:block/colour/magenta"
+	}
+}
