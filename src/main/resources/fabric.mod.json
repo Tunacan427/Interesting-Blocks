@@ -8,7 +8,10 @@
     "Pixelstorm"
   ],
   "contributors" : [],
-  "contact" : {},
+  "contact" : {
+    "homepage" : "https://www.curseforge.com/minecraft/mc-mods/interesting-blocks",
+    "sources" : "https://github.com/Pixelstormer/Interesting-Blocks/tree/1.14.4"
+  },
   "license" : "Apache-2.0",
   "icon" : "assets/interesting_blocks/icon.png",
   "environment" : "*",
