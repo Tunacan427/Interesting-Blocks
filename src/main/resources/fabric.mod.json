@@ -10,6 +10,7 @@
   "contributors" : [],
   "contact" : {
     "homepage" : "https://www.curseforge.com/minecraft/mc-mods/interesting-blocks",
+    "issues" : "https://github.com/Pixelstormer/Interesting-Blocks/issues",
     "sources" : "https://github.com/Pixelstormer/Interesting-Blocks/tree/1.14.4"
   },
   "license" : "Apache-2.0",
