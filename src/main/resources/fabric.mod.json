@@ -1,35 +1,35 @@
 {
-  "schemaVersion" : 1,
-  "id" : "interesting_blocks",
-  "version" : "${version}",
-  "name" : "Interesting Blocks",
-  "description" : "A collection of blocks with interesting properties.",
-  "authors" : [
-    "Pixelstorm"
-  ],
-  "contributors" : [],
-  "contact" : {
-    "homepage" : "https://www.curseforge.com/minecraft/mc-mods/interesting-blocks",
-    "issues" : "https://github.com/Pixelstormer/Interesting-Blocks/issues",
-    "sources" : "https://github.com/Pixelstormer/Interesting-Blocks/tree/1.14.4"
-  },
-  "license" : "Apache-2.0",
-  "icon" : "assets/interesting_blocks/icon.png",
-  "environment" : "*",
-  "entrypoints" : {
-    "main" : [
-      "mod.pixelstorm.interestingblocks.InterestingBlocks"
-    ],
-    "client" : [
-      "mod.pixelstorm.interestingblocks.InterestingBlocksClient"
-    ],
-    "server" : []
-  },
-  "mixins" : [
-    "interesting_blocks.mixins.json"
-  ],
-  "depends" : {
-    "fabricloader" : ">=0.4.0",
-    "fabric" : "*"
-  }
+	"schemaVersion" : 1,
+	"id" : "interesting_blocks",
+	"version" : "${version}",
+	"name" : "Interesting Blocks",
+	"description" : "A collection of blocks with interesting properties.",
+	"authors" : [
+		"Pixelstorm"
+	],
+	"contributors" : [],
+	"contact" : {
+		"homepage" : "https://www.curseforge.com/minecraft/mc-mods/interesting-blocks",
+		"issues" : "https://github.com/Pixelstormer/Interesting-Blocks/issues",
+		"sources" : "https://github.com/Pixelstormer/Interesting-Blocks/tree/1.14.4"
+	},
+	"license" : "Apache-2.0",
+	"icon" : "assets/interesting_blocks/icon.png",
+	"environment" : "*",
+	"entrypoints" : {
+		"main" : [
+			"mod.pixelstorm.interestingblocks.InterestingBlocks"
+		],
+		"client" : [
+			"mod.pixelstorm.interestingblocks.InterestingBlocksClient"
+		],
+		"server" : []
+	},
+	"mixins" : [
+		"interesting_blocks.mixins.json"
+	],
+	"depends" : {
+		"fabricloader" : ">=0.4.0",
+		"fabric" : "*"
+	}
 }
