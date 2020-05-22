@@ -1,6 +1,6 @@
 {
 	"type" : "minecraft:crafting_shaped",
-	"group" : "interesting_blocks/hardlight",
+	"group" : "interesting_blocks/vivid_hardlight",
 	"pattern" : [
 		"DSD",
 		"SGS",
@@ -14,7 +14,7 @@
 			"item" : "interesting_blocks:hardlight/red"
 		},
 		"G" : {
-			"item" : "minecraft:glowstone"
+			"item" : "minecraft:glowstone_dust"
 		}
 	},
 	"result" : {

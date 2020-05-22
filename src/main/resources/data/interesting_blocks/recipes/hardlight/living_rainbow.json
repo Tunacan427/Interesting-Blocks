@@ -28,7 +28,7 @@
 			"item" : "minecraft:glass"
 		},
 		"S" : {
-			"item" : "minecraft:glowstone"
+			"item" : "minecraft:glowstone_dust"
 		}
 	},
 	"result" : {

@@ -1,6 +1,5 @@
 {
 	"type" : "minecraft:crafting_shaped",
-	"group" : "interesting_blocks/inverted",
 	"pattern" : [
 		"ROG",
 		"L L",
