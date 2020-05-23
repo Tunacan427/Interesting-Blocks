@@ -4,7 +4,9 @@
 	"compatibilityLevel" : "JAVA_8",
 	"mixins" : [],
 	"client" : [
-		"MixinBuiltinModelItemRenderer"
+		"MixinBuiltinModelItemRenderer",
+		"MixinMinecraftClient",
+		"MixinWorldRenderer"
 	],
 	"server" : [],
 	"injectors" : {
