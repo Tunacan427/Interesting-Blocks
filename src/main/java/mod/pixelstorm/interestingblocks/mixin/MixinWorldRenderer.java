@@ -1,6 +1,6 @@
 package mod.pixelstorm.interestingblocks.mixin;
 
-import mod.pixelstorm.interestingblocks.InterestingBlocksClient;
+import mod.pixelstorm.interestingblocks.client.texture.SkyboxBlockTexture;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvType;
 import net.minecraft.client.MinecraftClient;
@@ -21,7 +21,7 @@ public class MixinWorldRenderer
 	private void render(CallbackInfo callbackInfo)
 	{
 		MinecraftClient.getInstance().getFramebuffer().endWrite();
-		blitFramebuffer(MinecraftClient.getInstance().getFramebuffer(), InterestingBlocksClient.skyboxBuffer);
+		blitFramebuffer(MinecraftClient.getInstance().getFramebuffer(), SkyboxBlockTexture.getInstance().getFramebuffer());
 		MinecraftClient.getInstance().getFramebuffer().beginWrite(true);
 	}
 

@@ -111,6 +111,11 @@ public class InterestingBlocks implements ModInitializer
 							CosmeticEndPortalBlockEntity::new,
 							(blockEntityType) -> CosmeticEndPortalBlockEntity.blockEntityType = blockEntityType));
 
+		items.add(registerBlockEntity("skybox_block",
+							new SkyboxBlock(),
+							SkyboxBlockEntity::new,
+							(blockEntityType) -> SkyboxBlockEntity.blockEntityType = blockEntityType));
+
 		log(Level.INFO, "Registered " + items.size() + " blocks.");
 
 		return items;

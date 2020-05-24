@@ -1,9 +1,6 @@
 package mod.pixelstorm.interestingblocks.block;
 
-import java.util.Random;
 import mod.pixelstorm.interestingblocks.block.entity.CosmeticEndPortalBlockEntity;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.BlockState;
@@ -58,16 +55,5 @@ public class CosmeticEndPortalBlock extends BlockWithEntity
 
 			world.addParticle(ParticleTypes.SMOKE, x + pos.getX(), y + pos.getY(), z + pos.getZ(), velX * 0.2, velY * 0.2, velZ * 0.2);
 		}
-	}
-
-	@Override
-	@Environment(EnvType.CLIENT)
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random)
-	{
-		// TODO: Fix
-		// double x = pos.getX() + random.nextFloat();
-		// double y = pos.getY() + 0.8D;
-		// double z = pos.getZ() + random.nextFloat();
-		// world.addParticle(ParticleTypes.SMOKE, x, y, z, 0.0D, 0.0D, 0.0D);
 	}
 }
