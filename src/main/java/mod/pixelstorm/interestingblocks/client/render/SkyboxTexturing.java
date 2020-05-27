@@ -31,9 +31,9 @@ public class SkyboxTexturing extends RenderPhase.Texturing
 				GlStateManager.texGenMode(GlStateManager.TexCoord.R, GL11.GL_EYE_LINEAR);
 
 				// GL_TEXTURE_GEN_MODE, GL_OBJECT_PLANE, GL_EYE_PLANE
-				GlStateManager.texGenParam(GlStateManager.TexCoord.S, GL11.GL_EYE_PLANE, getBuffer(1.0F, 0.0F, 0.0F, 0.0F));
-				GlStateManager.texGenParam(GlStateManager.TexCoord.T, GL11.GL_EYE_PLANE, getBuffer(0.0F, 1.0F, 0.0F, 0.0F));
-				GlStateManager.texGenParam(GlStateManager.TexCoord.R, GL11.GL_EYE_PLANE, getBuffer(0.0F, 0.0F, 1.0F, 0.0F));
+				GlStateManager.texGenParam(GlStateManager.TexCoord.S, GL11.GL_EYE_PLANE, getBuffer(1, 0, 0, 0));
+				GlStateManager.texGenParam(GlStateManager.TexCoord.T, GL11.GL_EYE_PLANE, getBuffer(0, 1, 0, 0));
+				GlStateManager.texGenParam(GlStateManager.TexCoord.R, GL11.GL_EYE_PLANE, getBuffer(0, 0, 1, 0));
 
 				GlStateManager.enableTexGen(GlStateManager.TexCoord.S);
 				GlStateManager.enableTexGen(GlStateManager.TexCoord.T);

@@ -18,7 +18,6 @@ import org.apache.logging.log4j.Level;
 public class EndPortalRenderer
 {
 	private static final Random RANDOM = new Random(31100L);
-
 	private static final List<RenderLayer> renderLayers;
 
 	static
@@ -44,38 +43,38 @@ public class EndPortalRenderer
 		float red = (RANDOM.nextFloat() * 0.5F + 0.1F) * colourScalar;
 		float green = (RANDOM.nextFloat() * 0.5F + 0.4F) * colourScalar;
 		float blue = (RANDOM.nextFloat() * 0.5F + 0.5F) * colourScalar;
-		renderFace(matrix, vertexConsumer, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, red, green, blue); // Direction.NORTH
-		renderFace(matrix, vertexConsumer, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, red, green, blue); // Direction.EAST
-		renderFace(matrix, vertexConsumer, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, red, green, blue); // Direction.SOUTH
-		renderFace(matrix, vertexConsumer, 0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F, red, green, blue); // Direction.WEST
-		renderFace(matrix, vertexConsumer, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, red, green, blue); // Direction.DOWN
-		renderFace(matrix, vertexConsumer, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, red, green, blue); // Direction.UP
+		renderFace(matrix, vertexConsumer, 0, 1, 1, 0, 0, 0, 0, 0, red, green, blue); // Direction.NORTH
+		renderFace(matrix, vertexConsumer, 1, 1, 1, 0, 0, 1, 1, 0, red, green, blue); // Direction.EAST
+		renderFace(matrix, vertexConsumer, 0, 1, 0, 1, 1, 1, 1, 1, red, green, blue); // Direction.SOUTH
+		renderFace(matrix, vertexConsumer, 0, 0, 0, 1, 0, 1, 1, 0, red, green, blue); // Direction.WEST
+		renderFace(matrix, vertexConsumer, 0, 1, 0, 0, 0, 0, 1, 1, red, green, blue); // Direction.DOWN
+		renderFace(matrix, vertexConsumer, 0, 1, 1, 1, 1, 1, 0, 0, red, green, blue); // Direction.UP
 	}
 
 	private static void renderFace(Matrix4f matrix, VertexConsumer vertexConsumer, float x1, float x2, float y1, float y2, float z1, float z2, float z3, float z4, float red, float green, float blue)
 	{
-		vertexConsumer.vertex(matrix, x1, y1, z1).color(red, green, blue, 1.0F).next();
-		vertexConsumer.vertex(matrix, x2, y1, z2).color(red, green, blue, 1.0F).next();
-		vertexConsumer.vertex(matrix, x2, y2, z3).color(red, green, blue, 1.0F).next();
-		vertexConsumer.vertex(matrix, x1, y2, z4).color(red, green, blue, 1.0F).next();
+		vertexConsumer.vertex(matrix, x1, y1, z1).color(red, green, blue, 1).next();
+		vertexConsumer.vertex(matrix, x2, y1, z2).color(red, green, blue, 1).next();
+		vertexConsumer.vertex(matrix, x2, y2, z3).color(red, green, blue, 1).next();
+		vertexConsumer.vertex(matrix, x1, y2, z4).color(red, green, blue, 1).next();
 	}
 
 	protected static int renderIterations(double cameraDistance)
 	{
-		if (cameraDistance > 36864.0D)
+		if (cameraDistance > 36864)
 			return 1;
-		if (cameraDistance > 25600.0D)
+		if (cameraDistance > 25600)
 			return 3;
-		if (cameraDistance > 16384.0D)
+		if (cameraDistance > 16384)
 			return 5;
-		if (cameraDistance > 9216.0D)
+		if (cameraDistance > 9216)
 			return 7;
-		if (cameraDistance > 4096.0D)
+		if (cameraDistance > 4096)
 			return 9;
-		if (cameraDistance > 1024.0D)
+		if (cameraDistance > 1024)
 			return 11;
-		if (cameraDistance > 576.0D)
+		if (cameraDistance > 576)
 			return 13;
-		return (cameraDistance > 256.0D) ? 14 : 15;
+		return (cameraDistance > 256) ? 14 : 15;
 	}
 }

@@ -27,14 +27,10 @@ public class MixinWorldRenderer
 
 	private void blitFramebuffer(Framebuffer from, Framebuffer to)
 	{
-		//from.beginRead();
-		//to.beginWrite(true);
 		GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, from.fbo);
 		GL30.glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, to.fbo);
 		GL30.glBlitFramebuffer(0, 0, from.textureWidth, from.textureHeight, 0, 0, to.textureWidth, to.textureHeight, GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT, GL11.GL_NEAREST);
 		GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, 0);
 		GL30.glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, 0);
-		//to.endWrite();
-		//from.endRead();
 	}
 }
