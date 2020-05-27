@@ -40,22 +40,22 @@ public class SkyboxBlock extends BlockWithEntity
 	{
 		super.onBreak(world, pos, state, player);
 
-		//if(!world.isClient)
-		//	return;
+		if(!world.isClient)
+			return;
 
-		//for(int i = 0; i < 24; ++i)
-		//{
-		//	// Spawn particles at random points within the block's bounds
-		//	double x = world.random.nextDouble();
-		//	double y = world.random.nextDouble();
-		//	double z = world.random.nextDouble();
+		for(int i = 0; i < 8; ++i)
+		{
+			// Spawn particles at random points within the block's bounds
+			double x = world.random.nextDouble();
+			double y = world.random.nextDouble();
+			double z = world.random.nextDouble();
 
-		//	// Random velocities pointing away from block center
-		//	double velX = (x - 0.5) * world.random.nextDouble();
-		//	double velY = (y - 0.5) * world.random.nextDouble();
-		//	double velZ = (z - 0.5) * world.random.nextDouble();
+			// Random velocities pointing away from block center
+			double velX = (x - 0.5) * world.random.nextDouble();
+			double velY = (y - 0.5) * world.random.nextDouble();
+			double velZ = (z - 0.5) * world.random.nextDouble();
 
-		//	world.addParticle(ParticleTypes.SMOKE, x + pos.getX(), y + pos.getY(), z + pos.getZ(), velX * 0.2, velY * 0.2, velZ * 0.2);
-		//}
+			world.addParticle(ParticleTypes.END_ROD, x + pos.getX(), y + pos.getY(), z + pos.getZ(), velX * 0.1, velY * 0.1, velZ * 0.1);
+		}
 	}
 }
