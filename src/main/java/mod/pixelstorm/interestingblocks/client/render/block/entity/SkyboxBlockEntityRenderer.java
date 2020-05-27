@@ -25,6 +25,11 @@ public class SkyboxBlockEntityRenderer extends BlockEntityRenderer<SkyboxBlockEn
 	@Override
 	public void render(SkyboxBlockEntity blockEntity, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, int overlay)
 	{
+		renderBlock(matrixStack, vertexConsumerProvider);
+	}
+
+	public static void renderBlock(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider)
+	{
 		SkyboxBlockTexture.getInstance().getFramebuffer().checkFramebufferStatus();
 		renderCube(matrixStack.peek().getModel(), vertexConsumerProvider.getBuffer(SKYBOX_RENDERLAYER));
 	}
