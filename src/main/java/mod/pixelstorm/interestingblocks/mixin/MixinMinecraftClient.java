@@ -4,6 +4,7 @@ import mod.pixelstorm.interestingblocks.client.texture.SkyboxBlockTexture;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvType;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.texture.TextureManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,7 +17,8 @@ public class MixinMinecraftClient
 	@Inject(method = "<init>", at = @At("RETURN"))
 	private void onInit(CallbackInfo callbackInfo)
 	{
-		MinecraftClient.getInstance().getTextureManager().registerTexture(SkyboxBlockTexture.ID, SkyboxBlockTexture.getInstance());
+		TextureManager manager = MinecraftClient.getInstance().getTextureManager();
+		manager.registerTexture(SkyboxBlockTexture.ID, SkyboxBlockTexture.getInstance());
 	}
 
 	@Inject(method = "onResolutionChanged", at = @At("TAIL"))
