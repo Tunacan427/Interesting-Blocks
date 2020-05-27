@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 public class SkyboxBlock extends BlockWithEntity
 {
-	public static final FabricBlockSettings DEFAULT_SETTINGS = FabricBlockSettings.of(Material.WOOL).strength(0.8F).sounds(BlockSoundGroup.WOOL);
+	public static final FabricBlockSettings DEFAULT_SETTINGS = FabricBlockSettings.of(Material.WOOL).strength(0.8F).lightLevel(3).sounds(BlockSoundGroup.WOOL);
 
 	public SkyboxBlock()
 	{
