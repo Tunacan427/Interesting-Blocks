@@ -43,7 +43,7 @@ public class SkyboxBlock extends BlockWithEntity
 		if(!world.isClient)
 			return;
 
-		for(int i = 0; i < 8; ++i)
+		for(int i = 0; i < 4; ++i)
 		{
 			// Spawn particles at random points within the block's bounds
 			double x = world.random.nextDouble();
