@@ -34,7 +34,7 @@ public class InterestingBlocks implements ModInitializer
 	{
 		log(Level.INFO, "Starting initialization.");
 
-		registerItemGroup("cosmetic", registerBlocks(), 19);
+		registerItemGroup("cosmetic", registerBlocks(), 16);
 
 		log(Level.INFO, "Finished initialization.");
 	}
