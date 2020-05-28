@@ -20,9 +20,10 @@ public class MixinWorldRenderer
 	@Inject(method = "render", at = @At(value = "INVOKE_STRING", target = "net/minecraft/util/profiler/Profiler.swap(Ljava/lang/String;)V", args = { "ldc=fog" }))
 	private void render(CallbackInfo callbackInfo)
 	{
-		MinecraftClient.getInstance().getFramebuffer().endWrite();
-		blitFramebuffer(MinecraftClient.getInstance().getFramebuffer(), SkyboxBlockTexture.getInstance().getFramebuffer());
-		MinecraftClient.getInstance().getFramebuffer().beginWrite(true);
+		Framebuffer buffer = MinecraftClient.getInstance().getFramebuffer();
+		buffer.endWrite();
+		blitFramebuffer(buffer, SkyboxBlockTexture.getInstance().getFramebuffer());
+		buffer.beginWrite(true);
 	}
 
 	private void blitFramebuffer(Framebuffer from, Framebuffer to)
