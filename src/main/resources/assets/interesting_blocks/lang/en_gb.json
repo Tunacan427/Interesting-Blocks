@@ -2,6 +2,7 @@
 	"itemGroup.interesting_blocks.cosmetic" : "Interesting Blocks",
 	"block.interesting_blocks.cosmetic_end_portal_block" : "Stabilised End Portal Block",
 	"block.interesting_blocks.cosmetic_nether_portal_block" : "Stabilised Nether Portal Block",
+	"block.interesting_blocks.echo_block" : "Echo Block",
 	"block.interesting_blocks.skybox_block" : "Skybox Block",
 	"block.interesting_blocks.hardlight.black" : "Black Hardlight Block",
 	"block.interesting_blocks.hardlight.blue" : "Blue Hardlight Block",

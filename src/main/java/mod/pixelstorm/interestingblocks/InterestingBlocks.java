@@ -105,6 +105,7 @@ public class InterestingBlocks implements ModInitializer
 		items.add(registerBlock("hardlight/vivid_blue", new HardlightBlock(vividSettings)));
 
 		items.add(registerBlock("cosmetic_nether_portal_block", new CosmeticNetherPortalBlock()));
+		items.add(registerBlock("echo_block", new EchoBlock()));
 
 		items.add(registerBlockEntity("cosmetic_end_portal_block",
 							new CosmeticEndPortalBlock(),
