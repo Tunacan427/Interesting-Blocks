@@ -24,7 +24,7 @@ public class ConnectedBlock extends Block
 	public static final BooleanProperty EAST = ConnectingBlock.EAST;
 	public static final BooleanProperty WEST = ConnectingBlock.WEST;
 
-	protected static final Map<Direction, BooleanProperty> FACING_PROPERTIES = ConnectingBlock.FACING_PROPERTIES;
+	public static final Map<Direction, BooleanProperty> FACING_PROPERTIES = ConnectingBlock.FACING_PROPERTIES;
 
 	public ConnectedBlock(Block.Settings settings)
 	{
@@ -32,6 +32,7 @@ public class ConnectedBlock extends Block
 		setDefaultState(getStateManager().getDefaultState().with(UP, false).with(DOWN, false).with(NORTH, false).with(SOUTH, false).with(EAST, false).with(WEST, false));
 	}
 
+	@Override
 	public BlockState getPlacementState(ItemPlacementContext placementContext)
 	{
 		World world = placementContext.getWorld();
@@ -45,11 +46,13 @@ public class ConnectedBlock extends Block
 								.with(WEST,		world.getBlockState(blockPos.west()).getBlock() == this);
 	}
 
+	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction facing, BlockState neighborState, IWorld world, BlockPos pos, BlockPos neighborPos)
 	{
-		return (neighborState.getBlock() == this) ? state.with(FACING_PROPERTIES.get(facing), true) : super.getStateForNeighborUpdate(state, facing, neighborState, world, pos, neighborPos);
+		return state.with(FACING_PROPERTIES.get(facing), neighborState.getBlock() == this);
 	}
 
+	@Override
 	public BlockState rotate(BlockState state, BlockRotation rotation)
 	{
 		return state.with(FACING_PROPERTIES.get(rotation.rotate(Direction.UP)),		state.get(UP))
@@ -60,6 +63,7 @@ public class ConnectedBlock extends Block
 					.with(FACING_PROPERTIES.get(rotation.rotate(Direction.WEST)),	state.get(WEST));
 	}
 
+	@Override
 	public BlockState mirror(BlockState state, BlockMirror mirror)
 	{
 		return state.with(FACING_PROPERTIES.get(mirror.apply(Direction.UP)),	state.get(UP))

@@ -1,6 +1,5 @@
 {
-	"parent" : "block/cube_all",
 	"textures" : {
-		"all" : "interesting_blocks:block/colour/vivid_white"
+		"particle" : "interesting_blocks:item/echo_block"
 	}
 }
