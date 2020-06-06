@@ -76,7 +76,7 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 														{ 1, 0, 0, 1, 8, 8 }
 													};
 
-	public static final String[] RENDERLAYER_NAMES = new String[768];
+	public static final RenderLayer[] RENDERLAYERS = new RenderLayer[768];
 
 	public static final Block ECHO_BLOCK = Registry.BLOCK.get(new Identifier(InterestingBlocks.MOD_ID, "echo_block"));
 
@@ -200,11 +200,13 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 
 	private static void createRenderLayers(int baseIndex, String id, int extraIndexes)
 	{
+		VertexFormat format = VertexFormats.POSITION_COLOR_TEXTURE;
+
 		if(extraIndexes == 0)
 		{
-			RENDERLAYER_NAMES[baseIndex] = id + "_1.png";
-			RENDERLAYER_NAMES[baseIndex | 0b01_0000_0000] = id + "_2.png";
-			RENDERLAYER_NAMES[baseIndex | 0b10_0000_0000] = id + "_3.png";
+			RENDERLAYERS[baseIndex] = getRenderLayer(id + "_1.png", format);
+			RENDERLAYERS[baseIndex | 0b01_0000_0000] = getRenderLayer(id + "_2.png", format);
+			RENDERLAYERS[baseIndex | 0b10_0000_0000] = getRenderLayer(id + "_3.png", format);
 		}
 		else
 		{
@@ -212,9 +214,9 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 			{
 				int flag = (i & extraIndexes) << 4;
 
-				RENDERLAYER_NAMES[flag | baseIndex] = id + "_1.png";
-				RENDERLAYER_NAMES[flag | baseIndex | 0b01_0000_0000] = id + "_2.png";
-				RENDERLAYER_NAMES[flag | baseIndex | 0b10_0000_0000] = id + "_3.png";
+				RENDERLAYERS[flag | baseIndex] = getRenderLayer(id + "_1.png", format);
+				RENDERLAYERS[flag | baseIndex | 0b01_0000_0000] = getRenderLayer(id + "_2.png", format);
+				RENDERLAYERS[flag | baseIndex | 0b10_0000_0000] = getRenderLayer(id + "_3.png", format);
 			}
 		}
 	}
@@ -255,6 +257,6 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 			}
 		}
 
-		return getRenderLayer(RENDERLAYER_NAMES[packedIndex], VertexFormats.POSITION_COLOR_TEXTURE);
+		return RENDERLAYERS[packedIndex];
 	}
 }
