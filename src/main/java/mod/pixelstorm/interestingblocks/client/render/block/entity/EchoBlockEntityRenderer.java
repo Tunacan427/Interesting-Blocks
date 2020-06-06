@@ -33,13 +33,13 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 
 	public static final Direction[][] PERPENDICULAR =	{
 															{
-																null // Never accessed
+																null // Should never be accessed
 																Direction.EAST,
 																Direction.SOUTH
 															},
 															{
 																Direction.EAST,
-																null, // Never accessed
+																null, // Should never be accessed
 																Direction.UP
 															},
 															{
@@ -48,7 +48,7 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 															}
 														};
 
-	public static final int[][] PACKING_FLAGS =	{
+	public static final int[][] PACKING_FLAGS =	{	// Value of 0 = should never be accessed
 													{ 0, 0, 1, 4, 8, 2 },
 													{ 0, 0, 4, 1, 8, 2 },
 													{ 4, 1, 0, 0, 8, 2 },
@@ -66,7 +66,7 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 																{ 16, 32, 64, 128 }
 															};
 
-	public static final int[][] DIAGONAL_INDEXES =	{
+	public static final int[][] DIAGONAL_INDEXES =	{	// Value of 8 = should never be accessed
 														{ 8, 8, 1, 2, 2, 1 },
 														{ 8, 8, 0, 3, 3, 0 },
 														{ 1, 0, 8, 8, 3, 0 },
