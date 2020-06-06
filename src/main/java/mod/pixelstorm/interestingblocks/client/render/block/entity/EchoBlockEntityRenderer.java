@@ -30,8 +30,50 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 																								RenderSystem.defaultBlendFunc();
 																							},
 																							() -> RenderSystem.disableBlend());
-	public static final RenderLayer[] RENDERLAYERS = new RenderLayer[48];
-	public static final Map<Direction, Map<Direction, Integer>> PACKING_OFFSETS;
+
+	public static final Direction[][] PERPENDICULAR =	{
+															{
+																null // Never accessed
+																Direction.EAST,
+																Direction.SOUTH
+															},
+															{
+																Direction.EAST,
+																null, // Never accessed
+																Direction.UP
+															},
+															{
+																Direction.NORTH,
+																Direction.UP
+															}
+														};
+
+	public static final int[][] PACKING_FLAGS =	{
+													{ 0, 0, 1, 4, 8, 2 },
+													{ 0, 0, 4, 1, 8, 2 },
+													{ 4, 1, 0, 0, 8, 2 },
+													{ 1, 4, 0, 0, 8, 2 },
+													{ 1, 4, 8, 2, 0, 0 },
+													{ 4, 1, 8, 2, 0, 0 }
+												};
+
+	public static final int[][] DIAGONAL_PACKING_FLAGS =	{
+																{ 16, 32, 64, 128 },
+																{ 16, 32, 64, 128 },
+																{ 16, 32, 64, 128 },
+																{ 16, 32, 64, 128 },
+																{ 16, 32, 64, 128 },
+																{ 16, 32, 64, 128 }
+															};
+
+	public static final int[][] DIAGONAL_INDEXES =	{
+														{ 8, 8, 1, 2, 2, 1 },
+														{ 8, 8, 0, 3, 3, 0 },
+														{ 1, 0, 8, 8, 3, 0 },
+														{ 2, 3, 8, 8, 2, 1 },
+														{ 2, 3, 3, 2, 8, 8 },
+														{ 1, 0, 0, 1, 8, 8 }
+													};
 
 	public static final String[] RENDERLAYER_NAMES = new String[767];
 
@@ -39,103 +81,58 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 
 	static
 	{
-		VertexFormat format = VertexFormats.POSITION_COLOR_TEXTURE;
 		String path = "textures/block/echo/";
 
-		createRenderLayers(0b0000_0000, path + "single", format);
-		createRenderLayers(0b0000_0001, path + "bottom_cap", format);
-		createRenderLayers(0b0000_0010, path + "left_cap", format);
-		createRenderLayers(0b0000_0011, path + "doublecorner_bottomleft", format);
-		createRenderLayers(0b0000_0100, path + "top_cap", format);
-		createRenderLayers(0b0000_0101, path + "vertical", format);
-		createRenderLayers(0b0000_0110, path + "doublecorner_topleft", format);
-		createRenderLayers(0b0000_0111, path + "leftedge_corners", format);
-		createRenderLayers(0b0000_1000, path + "right_cap", format);
-		createRenderLayers(0b0000_1001, path + "doublecorner_bottomright", format);
-		createRenderLayers(0b0000_1010, path + "horizontal", format);
-		createRenderLayers(0b0000_1011, path + "bottomedge_corners", format);
-		createRenderLayers(0b0000_1100, path + "doublecorner_topright", format);
-		createRenderLayers(0b0000_1101, path + "rightedge_corners", format);
-		createRenderLayers(0b0000_1110, path + "topedge_corners", format);
-		createRenderLayers(0b0000_1111, path + "corners", format);
+		createRenderLayers(0b0000_0000, path + "single");
+		createRenderLayers(0b0000_0001, path + "bottom_cap");
+		createRenderLayers(0b0000_0010, path + "left_cap");
+		createRenderLayers(0b0000_0011, path + "doublecorner_bottomleft");
+		createRenderLayers(0b0000_0100, path + "top_cap");
+		createRenderLayers(0b0000_0101, path + "vertical");
+		createRenderLayers(0b0000_0110, path + "doublecorner_topleft");
+		createRenderLayers(0b0000_0111, path + "leftedge_corners");
+		createRenderLayers(0b0000_1000, path + "right_cap");
+		createRenderLayers(0b0000_1001, path + "doublecorner_bottomright");
+		createRenderLayers(0b0000_1010, path + "horizontal");
+		createRenderLayers(0b0000_1011, path + "bottomedge_corners");
+		createRenderLayers(0b0000_1100, path + "doublecorner_topright");
+		createRenderLayers(0b0000_1101, path + "rightedge_corners");
+		createRenderLayers(0b0000_1110, path + "topedge_corners");
+		createRenderLayers(0b0000_1111, path + "corners");
 
-		createRenderLayers(0b0001_1011, path + "bottomedge_leftcorner", format);
-		createRenderLayers(0b0010_0111, path + "leftedge_topcorner", format);
-		createRenderLayers(0b0100_1110, path + "topedge_rightcorner", format);
-		createRenderLayers(0b1000_1101, path + "rightedge_bottomcorner", format);
+		createRenderLayers(0b0001_1011, path + "bottomedge_leftcorner");
+		createRenderLayers(0b0010_0111, path + "leftedge_topcorner");
+		createRenderLayers(0b0100_1110, path + "topedge_rightcorner");
+		createRenderLayers(0b1000_1101, path + "rightedge_bottomcorner");
 
-		createRenderLayers(0b0001_0111, path + "leftedge_bottomcorner", format);
-		createRenderLayers(0b0010_1110, path + "topedge_leftcorner", format);
-		createRenderLayers(0b0100_1101, path + "rightedge_topcorner", format);
-		createRenderLayers(0b1000_1011, path + "bottomedge_rightcorner", format);
+		createRenderLayers(0b0001_0111, path + "leftedge_bottomcorner");
+		createRenderLayers(0b0010_1110, path + "topedge_leftcorner");
+		createRenderLayers(0b0100_1101, path + "rightedge_topcorner");
+		createRenderLayers(0b1000_1011, path + "bottomedge_rightcorner");
 
-		createRenderLayers(0b0011_0111, path + "left_edge", format);
-		createRenderLayers(0b0110_1110, path + "top_edge", format);
-		createRenderLayers(0b1001_1011, path + "bottom_edge", format);
-		createRenderLayers(0b1100_1101, path + "right_edge", format);
+		createRenderLayers(0b0011_0111, path + "left_edge");
+		createRenderLayers(0b0110_1110, path + "top_edge");
+		createRenderLayers(0b1001_1011, path + "bottom_edge");
+		createRenderLayers(0b1100_1101, path + "right_edge");
 
-		createRenderLayers(0b0001_1111, path + "corners_no-topright", format);
-		createRenderLayers(0b0010_1111, path + "corners_no-bottomright", format);
-		createRenderLayers(0b0100_1111, path + "corners_no-bottomleft", format);
-		createRenderLayers(0b1000_1111, path + "corners_no-topleft", format);
+		createRenderLayers(0b0001_1111, path + "corners_no-topright");
+		createRenderLayers(0b0010_1111, path + "corners_no-bottomright");
+		createRenderLayers(0b0100_1111, path + "corners_no-bottomleft");
+		createRenderLayers(0b1000_1111, path + "corners_no-topleft");
 
-		createRenderLayers(0b0011_1111, path + "corners_left", format);
-		createRenderLayers(0b0110_1111, path + "corners_top", format);
-		createRenderLayers(0b1100_1111, path + "corners_right", format);
-		createRenderLayers(0b1001_1111, path + "corners_bottom", format);
+		createRenderLayers(0b0011_1111, path + "corners_left");
+		createRenderLayers(0b0110_1111, path + "corners_top");
+		createRenderLayers(0b1100_1111, path + "corners_right");
+		createRenderLayers(0b1001_1111, path + "corners_bottom");
 
-		createRenderLayers(0b0111_1111, path + "corner_topleft", format);
-		createRenderLayers(0b1011_1111, path + "corner_bottomleft", format);
-		createRenderLayers(0b1101_1111, path + "corner_bottomright", format);
-		createRenderLayers(0b1110_1111, path + "corner_topright", format);
+		createRenderLayers(0b0111_1111, path + "corner_topleft");
+		createRenderLayers(0b1011_1111, path + "corner_bottomleft");
+		createRenderLayers(0b1101_1111, path + "corner_bottomright");
+		createRenderLayers(0b1110_1111, path + "corner_topright");
 
-		createRenderLayers(0b0101_1111, path + "corners_topleft_bottomright", format);
-		createRenderLayers(0b1010_1111, path + "corners_topright_bottomleft", format);
-		createRenderLayers(0b1111_1111, path + "invisible", format);
-
-		PACKING_OFFSETS = new HashMap<Direction, Map<Direction, Integer>>(6, 1);
-
-		Map<Direction, Integer> up = new HashMap<Direction, Integer>(4, 1);
-		up.put(Direction.NORTH, 2);
-		up.put(Direction.EAST, 1);
-		up.put(Direction.SOUTH, 0);
-		up.put(Direction.WEST, 3);
-		PACKING_OFFSETS.put(Direction.UP, up);
-
-		Map<Direction, Integer> down = new HashMap<Direction, Integer>(4, 1);
-		down.put(Direction.NORTH, 0);
-		down.put(Direction.EAST, 1);
-		down.put(Direction.SOUTH, 2);
-		down.put(Direction.WEST, 3);
-		PACKING_OFFSETS.put(Direction.DOWN, down);
-
-		Map<Direction, Integer> north = new HashMap<Direction, Integer>(4, 1);
-		north.put(Direction.UP, 0);
-		north.put(Direction.EAST, 1);
-		north.put(Direction.DOWN, 2);
-		north.put(Direction.WEST, 3);
-		PACKING_OFFSETS.put(Direction.NORTH, north);
-
-		Map<Direction, Integer> east = new HashMap<Direction, Integer>(4, 1);
-		east.put(Direction.UP, 0);
-		east.put(Direction.NORTH, 3);
-		east.put(Direction.DOWN, 2);
-		east.put(Direction.SOUTH, 1);
-		PACKING_OFFSETS.put(Direction.EAST, east);
-
-		Map<Direction, Integer> south = new HashMap<Direction, Integer>(4, 1);
-		south.put(Direction.UP, 2);
-		south.put(Direction.EAST, 1);
-		south.put(Direction.DOWN, 0);
-		south.put(Direction.WEST, 3);
-		PACKING_OFFSETS.put(Direction.SOUTH, south);
-
-		Map<Direction, Integer> west = new HashMap<Direction, Integer>(4, 1);
-		west.put(Direction.UP, 2);
-		west.put(Direction.NORTH, 3);
-		west.put(Direction.DOWN, 0);
-		west.put(Direction.SOUTH, 1);
-		PACKING_OFFSETS.put(Direction.WEST, west);
+		createRenderLayers(0b0101_1111, path + "corners_topleft_bottomright");
+		createRenderLayers(0b1010_1111, path + "corners_topright_bottomleft");
+		createRenderLayers(0b1111_1111, path + "invisible");
 	}
 
 	public EchoBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher)
@@ -146,24 +143,30 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 	@Override
 	public void render(EchoBlockEntity blockEntity, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, int overlay)
 	{
-		renderCube(blockEntity.getWorld().getBlockState(blockEntity.getPos()), ((int) ((blockEntity.getWorld().getTime() + tickDelta) / 10f)) % 3 * 16, matrixStack.peek().getModel(), vertexConsumerProvider, blockEntity::shouldDrawSide);
+		renderCube(blockEntity.getWorld(),
+					blockEntity.getPos(),
+					blockEntity.getWorld().getBlockState(blockEntity.getPos()),
+					((int) ((blockEntity.getWorld().getTime() + tickDelta) / 10f)) % 3 * 16,
+					matrixStack.peek().getModel(),
+					vertexConsumerProvider,
+					blockEntity::shouldDrawSide);
 	}
 
-	private static void renderCube(BlockState state, int frame, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider, Function<Direction, Boolean> shouldDrawSide)
+	private static void renderCube(World world, BlockPos blockPos, BlockState state, int frame, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider, Function<Direction, Boolean> shouldDrawSide)
 	{
-		renderFace(state, matrix, vertexConsumerProvider, 0, 1, 1, 0, 0, 0, 0, 0, Direction.NORTH, frame, shouldDrawSide);
-		renderFace(state, matrix, vertexConsumerProvider, 1, 1, 1, 0, 0, 1, 1, 0, Direction.EAST, frame, shouldDrawSide);
-		renderFace(state, matrix, vertexConsumerProvider, 0, 1, 0, 1, 1, 1, 1, 1, Direction.SOUTH, frame, shouldDrawSide);
-		renderFace(state, matrix, vertexConsumerProvider, 0, 0, 0, 1, 0, 1, 1, 0, Direction.WEST, frame, shouldDrawSide);
-		renderFace(state, matrix, vertexConsumerProvider, 0, 1, 0, 0, 0, 0, 1, 1, Direction.DOWN, frame, shouldDrawSide);
-		renderFace(state, matrix, vertexConsumerProvider, 0, 1, 1, 1, 1, 1, 0, 0, Direction.UP, frame, shouldDrawSide);
+		renderFace(world, blockPos, state, Direction.NORTH,	frame, matrix, vertexConsumerProvider, 0, 1, 1, 0, 0, 0, 0, 0, shouldDrawSide);
+		renderFace(world, blockPos, state, Direction.EAST,	frame, matrix, vertexConsumerProvider, 1, 1, 1, 0, 0, 1, 1, 0, shouldDrawSide);
+		renderFace(world, blockPos, state, Direction.SOUTH,	frame, matrix, vertexConsumerProvider, 0, 1, 0, 1, 1, 1, 1, 1, shouldDrawSide);
+		renderFace(world, blockPos, state, Direction.WEST,	frame, matrix, vertexConsumerProvider, 0, 0, 0, 1, 0, 1, 1, 0, shouldDrawSide);
+		renderFace(world, blockPos, state, Direction.DOWN,	frame, matrix, vertexConsumerProvider, 0, 1, 0, 0, 0, 0, 1, 1, shouldDrawSide);
+		renderFace(world, blockPos, state, Direction.UP,	frame, matrix, vertexConsumerProvider, 0, 1, 1, 1, 1, 1, 0, 0, shouldDrawSide);
 	}
 
-	private static void renderFace(BlockState state, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider, float x1, float x2, float y1, float y2, float z1, float z2, float z3, float z4, Direction direction, int frame, Function<Direction, Boolean> shouldDrawSide)
+	private static void renderFace(World world, BlockPos blockPos, BlockState state, Direction direction, int frame, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider, float x1, float x2, float y1, float y2, float z1, float z2, float z3, float z4, Function<Direction, Boolean> shouldDrawSide)
 	{
 		if(shouldDrawSide.apply(direction))
 		{
-			VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(getRenderLayer(state, direction, frame));
+			VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(getRenderLayer(world, blockPos, state, direction, frame));
 			vertexConsumer.vertex(matrix, x1, y1, z1).color(255, 255, 255, 255).texture(0f, 0f).next();
 			vertexConsumer.vertex(matrix, x2, y1, z2).color(255, 255, 255, 255).texture(1f, 0f).next();
 			vertexConsumer.vertex(matrix, x2, y2, z3).color(255, 255, 255, 255).texture(1f, 1f).next();
@@ -171,12 +174,8 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 		}
 	}
 
-	private static void createRenderLayers(int baseIndex, String id, VertexFormat format)
+	private static void createRenderLayers(int baseIndex, String id)
 	{
-		// RENDERLAYERS[baseIndex] = getRenderLayer(id + "_1.png", format);
-		// RENDERLAYERS[baseIndex | 0b10000] = getRenderLayer(id + "_2.png", format);
-		// RENDERLAYERS[baseIndex | 0b100000] = getRenderLayer(id + "_3.png", format);
-
 		RENDERLAYER_NAMES[baseIndex] = id + "_1.png";
 		RENDERLAYER_NAMES[baseIndex | 0b01_0000_0000] = id + "_2.png";
 		RENDERLAYER_NAMES[baseIndex | 0b10_0000_0000] = id + "_3.png";
@@ -188,18 +187,33 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 		return RenderLayer.of(id, format, 7, format.getVertexSize(), RenderLayer.MultiPhaseParameters.builder().texture(new RenderPhase.Texture(identifier, false, false)).transparency(TRANSLUCENCE).build(false));
 	}
 
-	public static RenderLayer getRenderLayer(BlockState state, Direction direction, int packedIndex)
+	public static RenderLayer getRenderLayer(World world, BlockPos blockPos, BlockState state, Direction direction, int packedIndex)
 	{
 		for(Direction d : Direction.values())
 		{
 			if(d == direction || d == direction.getOpposite())
 				continue;
 
-			packedIndex |= (state.get(ConnectedBlock.FACING_PROPERTIES.get(d)) ? 1 : 0) << PACKING_OFFSETS.get(direction).get(d);
+			if(state.get(ConnectedBlock.FACING_PROPERTIES.get(d)))
+			{
+				int directionId = direction.getId();
+				int dId = d.getId();
+
+				packedIndex |= PACKING_FLAGS[directionId][dId];
+
+				BlockState adjacentState = world.getBlockState(blockPos.offset(d));
+
+				Direction diagonal = PERPENDICULAR[directionId / 2][dId / 2];
+				Direction oppositeDiagonal = diagonal.getOpposite();
+
+				if(adjacentState.get(ConnectedBlock.FACING_PROPERTIES.get(diagonal)))
+					packedIndex |= DIAGONAL_PACKING_FLAGS[directionId][DIAGONAL_INDEXES[dId][diagonal.getId()]];
+
+				if(adjacentState.get(ConnectedBlock.FACING_PROPERTIES.get(oppositeDiagonal)))
+					packedIndex |= DIAGONAL_PACKING_FLAGS[directionId][DIAGONAL_INDEXES[dId][oppositeDiagonal.getId()]];
+			}
 		}
 
 		return getRenderLayer(RENDERLAYER_NAMES[packedIndex], VertexFormats.POSITION_COLOR_TEXTURE);
-
-		//return RENDERLAYERS[packedIndex];
 	}
 }
