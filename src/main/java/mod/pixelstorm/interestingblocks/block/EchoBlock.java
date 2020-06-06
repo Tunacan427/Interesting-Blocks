@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 
 public class EchoBlock extends ConnectedBlock implements BlockEntityProvider
 {
-	public static final FabricBlockSettings DEFAULT_SETTINGS = FabricBlockSettings.of(Material.GLASS).strength(0.8F).nonOpaque().sounds(BlockSoundGroup.GLASS);
+	public static final FabricBlockSettings DEFAULT_SETTINGS = FabricBlockSettings.of(Material.GLASS).strength(0.8F).nonOpaque().lightLevel(3).sounds(BlockSoundGroup.GLASS);
 
 	public EchoBlock()
 	{
