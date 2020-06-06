@@ -28,7 +28,6 @@ public class InterestingBlocksClient implements ClientModInitializer
 		registerBlockEntityRenderer("echo_block", EchoBlockEntityRenderer::new);
 
 		BlockRenderLayerMap.INSTANCE.putBlock(Registry.BLOCK.get(new Identifier(InterestingBlocks.MOD_ID, "cosmetic_nether_portal_block")), RenderLayer.getTranslucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(Registry.BLOCK.get(new Identifier(InterestingBlocks.MOD_ID, "echo_block")), RenderLayer.getTranslucent());
 
 		InterestingBlocks.log(Level.INFO, "Finished client initialization.");
 	}

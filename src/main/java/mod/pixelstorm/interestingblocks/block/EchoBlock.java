@@ -42,18 +42,13 @@ public class EchoBlock extends ConnectedBlock implements BlockEntityProvider
 	}
 
 	@Override
-	public boolean isTranslucent(BlockState state, BlockView view, BlockPos pos)
-	{
-		return true;
-	}
-
-	@Override
 	public BlockEntity createBlockEntity(BlockView blockView)
 	{
 		return new EchoBlockEntity();
 	}
 
 	@Environment(EnvType.CLIENT)
+	@Override
 	public boolean isSideInvisible(BlockState state, BlockState neighbor, Direction facing)
 	{
 		return (neighbor.getBlock() == this) ? true : super.isSideInvisible(state, neighbor, facing);
