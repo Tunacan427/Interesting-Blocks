@@ -76,6 +76,8 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 
 	public static final String[] RENDERLAYER_NAMES = new String[768];
 
+	private static final Direction[] DIRECTIONS = Direction.values();
+
 	static
 	{
 		String path = "textures/block/echo/";
@@ -214,7 +216,7 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 
 	public static RenderLayer getRenderLayer(World world, BlockPos blockPos, BlockState state, Direction direction, int packedIndex)
 	{
-		for(Direction d : Direction.values())
+		for(Direction d : DIRECTIONS)
 		{
 			if(d == direction || d == direction.getOpposite())
 				continue;
