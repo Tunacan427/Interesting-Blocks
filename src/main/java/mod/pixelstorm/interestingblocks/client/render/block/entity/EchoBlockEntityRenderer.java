@@ -59,11 +59,11 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 
 	public static final int[][] DIAGONAL_PACKING_FLAGS =	{
 																{ 16, 32, 64, 128 },
+																{ 32, 16, 128, 64 },
 																{ 16, 32, 64, 128 },
-																{ 16, 32, 64, 128 },
-																{ 16, 32, 64, 128 },
-																{ 16, 32, 64, 128 },
-																{ 16, 32, 64, 128 }
+																{ 32, 16, 128, 64 },
+																{ 64, 128, 16, 32 },
+																{ 128, 64, 32, 16 }
 															};
 
 	public static final int[][] DIAGONAL_INDEXES =	{	// Value of 8 = should never be accessed
@@ -82,41 +82,46 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 		String path = "textures/block/echo/";
 
 		createRenderLayers(0b0000_0000, path + "single");
-		createRenderLayers(0b1111_1111, path + "invisible");
 		createRenderLayers(0b0000_1111, path + "corners");
+		createRenderLayers(0b1111_1111, path + "invisible");
 
-		createRenderLayers(0b0000_0101, path + "vertical");
-		createRenderLayers(0b0000_1010, path + "horizontal");
+		createRenderLayers(0b0000_0101, path + "vertical", 0b1111);
+		createRenderLayers(0b0000_1010, path + "horizontal", 0b1111);
 
-		createRenderLayers(0b0000_0001, path + "bottom_cap");
-		createRenderLayers(0b0000_0010, path + "left_cap");
-		createRenderLayers(0b0000_0100, path + "top_cap");
-		createRenderLayers(0b0000_1000, path + "right_cap");
+		createRenderLayers(0b0000_0001, path + "bottom_cap", 0b1111);
+		createRenderLayers(0b0000_0010, path + "left_cap", 0b1111);
+		createRenderLayers(0b0000_0100, path + "top_cap", 0b1111);
+		createRenderLayers(0b0000_1000, path + "right_cap", 0b1111);
 
-		createRenderLayers(0b0000_0011, path + "doublecorner_bottomleft");
-		createRenderLayers(0b0000_0110, path + "doublecorner_topleft");
-		createRenderLayers(0b0000_1001, path + "doublecorner_bottomright");
-		createRenderLayers(0b0000_1100, path + "doublecorner_topright");
+		createRenderLayers(0b0000_0011, path + "doublecorner_bottomleft", 0b1110);
+		createRenderLayers(0b0000_0110, path + "doublecorner_topleft", 0b1101);
+		createRenderLayers(0b0000_1100, path + "doublecorner_topright", 0b1011);
+		createRenderLayers(0b0000_1001, path + "doublecorner_bottomright", 0b0111);
 
-		createRenderLayers(0b0000_0111, path + "leftedge_corners");
-		createRenderLayers(0b0000_1011, path + "bottomedge_corners");
-		createRenderLayers(0b0000_1101, path + "rightedge_corners");
-		createRenderLayers(0b0000_1110, path + "topedge_corners");
+		createRenderLayers(0b0001_0011, path + "bottomleft_corner", 0b1111);
+		createRenderLayers(0b0010_0110, path + "topleft_corner", 0b1111);
+		createRenderLayers(0b0100_1100, path + "topright_corner", 0b1111);
+		createRenderLayers(0b1000_1001, path + "bottomright_corner", 0b1111);
 
-		createRenderLayers(0b0001_1011, path + "bottomedge_leftcorner");
-		createRenderLayers(0b0010_0111, path + "leftedge_topcorner");
-		createRenderLayers(0b0100_1110, path + "topedge_rightcorner");
-		createRenderLayers(0b1000_1101, path + "rightedge_bottomcorner");
+		createRenderLayers(0b0000_0111, path + "leftedge_corners", 0b1100);
+		createRenderLayers(0b0000_1011, path + "bottomedge_corners", 0b0110);
+		createRenderLayers(0b0000_1101, path + "rightedge_corners", 0b0011);
+		createRenderLayers(0b0000_1110, path + "topedge_corners", 0b1001);
 
-		createRenderLayers(0b0001_0111, path + "leftedge_bottomcorner");
-		createRenderLayers(0b0010_1110, path + "topedge_leftcorner");
-		createRenderLayers(0b0100_1101, path + "rightedge_topcorner");
-		createRenderLayers(0b1000_1011, path + "bottomedge_rightcorner");
+		createRenderLayers(0b0001_1011, path + "bottomedge_leftcorner", 0b0110);
+		createRenderLayers(0b0010_0111, path + "leftedge_topcorner", 0b1100);
+		createRenderLayers(0b0100_1110, path + "topedge_rightcorner", 0b1001);
+		createRenderLayers(0b1000_1101, path + "rightedge_bottomcorner", 0b0011);
 
-		createRenderLayers(0b0011_0111, path + "left_edge");
-		createRenderLayers(0b0110_1110, path + "top_edge");
-		createRenderLayers(0b1001_1011, path + "bottom_edge");
-		createRenderLayers(0b1100_1101, path + "right_edge");
+		createRenderLayers(0b0001_0111, path + "leftedge_bottomcorner", 0b1100);
+		createRenderLayers(0b0010_1110, path + "topedge_leftcorner", 0b1001);
+		createRenderLayers(0b0100_1101, path + "rightedge_topcorner", 0b0011);
+		createRenderLayers(0b1000_1011, path + "bottomedge_rightcorner", 0b0110);
+
+		createRenderLayers(0b0011_0111, path + "left_edge", 0b1100);
+		createRenderLayers(0b0110_1110, path + "top_edge", 0b1001);
+		createRenderLayers(0b1001_1011, path + "bottom_edge", 0b0110);
+		createRenderLayers(0b1100_1101, path + "right_edge", 0b0011);
 
 		createRenderLayers(0b0001_1111, path + "corners_no-topright");
 		createRenderLayers(0b0010_1111, path + "corners_no-bottomright");
@@ -178,9 +183,28 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 
 	private static void createRenderLayers(int baseIndex, String id)
 	{
-		RENDERLAYER_NAMES[baseIndex] = id + "_1.png";
-		RENDERLAYER_NAMES[baseIndex | 0b01_0000_0000] = id + "_2.png";
-		RENDERLAYER_NAMES[baseIndex | 0b10_0000_0000] = id + "_3.png";
+		createRenderLayers(baseIndex, id, 0);
+	}
+
+	private static void createRenderLayers(int baseIndex, String id, int extraIndexes)
+	{
+		if(extraIndexes == 0)
+		{
+			RENDERLAYER_NAMES[baseIndex] = id + "_1.png";
+			RENDERLAYER_NAMES[baseIndex | 0b01_0000_0000] = id + "_2.png";
+			RENDERLAYER_NAMES[baseIndex | 0b10_0000_0000] = id + "_3.png";
+		}
+		else
+		{
+			for(int i = 0; i < 16; ++i)
+			{
+				int flag = (i & extraIndexes) << 4;
+
+				RENDERLAYER_NAMES[flag | baseIndex] = id + "_1.png";
+				RENDERLAYER_NAMES[flag | baseIndex | 0b01_0000_0000] = id + "_2.png";
+				RENDERLAYER_NAMES[flag | baseIndex | 0b10_0000_0000] = id + "_3.png";
+			}
+		}
 	}
 
 	public static RenderLayer getRenderLayer(String id, VertexFormat format)
@@ -201,12 +225,12 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 				int directionId = direction.getId();
 				int dId = d.getId();
 
-				packedIndex |= PACKING_FLAGS[directionId][dId];
+				Direction diagonal = PERPENDICULAR[directionId / 2][dId / 2];
+				Direction oppositeDiagonal = diagonal.getOpposite();
 
 				BlockState adjacentState = world.getBlockState(blockPos.offset(d));
 
-				Direction diagonal = PERPENDICULAR[directionId / 2][dId / 2];
-				Direction oppositeDiagonal = diagonal.getOpposite();
+				packedIndex |= PACKING_FLAGS[directionId][dId];
 
 				if(adjacentState.get(ConnectedBlock.FACING_PROPERTIES.get(diagonal)))
 					packedIndex |= DIAGONAL_PACKING_FLAGS[directionId][DIAGONAL_INDEXES[dId][diagonal.getId()]];
