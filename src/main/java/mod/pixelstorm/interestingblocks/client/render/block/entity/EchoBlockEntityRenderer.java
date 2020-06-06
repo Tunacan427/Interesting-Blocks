@@ -1,8 +1,6 @@
 package mod.pixelstorm.interestingblocks.client.render.block.entity;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 import mod.pixelstorm.interestingblocks.InterestingBlocks;
 import mod.pixelstorm.interestingblocks.block.ConnectedBlock;
@@ -19,7 +17,9 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.util.math.Matrix4f;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import org.apache.logging.log4j.Level;
 
 public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity>
@@ -33,7 +33,7 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 
 	public static final Direction[][] PERPENDICULAR =	{
 															{
-																null // Should never be accessed
+																null, // Should never be accessed
 																Direction.EAST,
 																Direction.SOUTH
 															},
@@ -77,28 +77,31 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 
 	public static final String[] RENDERLAYER_NAMES = new String[767];
 
-	public static final EchoBlock ECHO_BLOCK = Registry.BLOCK.get(new Identifier(InterestingBlocks.MOD_ID, "echo_block"));
-
 	static
 	{
 		String path = "textures/block/echo/";
 
 		createRenderLayers(0b0000_0000, path + "single");
+		createRenderLayers(0b1111_1111, path + "invisible");
+		createRenderLayers(0b0000_1111, path + "corners");
+
+		createRenderLayers(0b0000_0101, path + "vertical");
+		createRenderLayers(0b0000_1010, path + "horizontal");
+
 		createRenderLayers(0b0000_0001, path + "bottom_cap");
 		createRenderLayers(0b0000_0010, path + "left_cap");
-		createRenderLayers(0b0000_0011, path + "doublecorner_bottomleft");
 		createRenderLayers(0b0000_0100, path + "top_cap");
-		createRenderLayers(0b0000_0101, path + "vertical");
-		createRenderLayers(0b0000_0110, path + "doublecorner_topleft");
-		createRenderLayers(0b0000_0111, path + "leftedge_corners");
 		createRenderLayers(0b0000_1000, path + "right_cap");
+
+		createRenderLayers(0b0000_0011, path + "doublecorner_bottomleft");
+		createRenderLayers(0b0000_0110, path + "doublecorner_topleft");
 		createRenderLayers(0b0000_1001, path + "doublecorner_bottomright");
-		createRenderLayers(0b0000_1010, path + "horizontal");
-		createRenderLayers(0b0000_1011, path + "bottomedge_corners");
 		createRenderLayers(0b0000_1100, path + "doublecorner_topright");
+
+		createRenderLayers(0b0000_0111, path + "leftedge_corners");
+		createRenderLayers(0b0000_1011, path + "bottomedge_corners");
 		createRenderLayers(0b0000_1101, path + "rightedge_corners");
 		createRenderLayers(0b0000_1110, path + "topedge_corners");
-		createRenderLayers(0b0000_1111, path + "corners");
 
 		createRenderLayers(0b0001_1011, path + "bottomedge_leftcorner");
 		createRenderLayers(0b0010_0111, path + "leftedge_topcorner");
@@ -132,7 +135,6 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 
 		createRenderLayers(0b0101_1111, path + "corners_topleft_bottomright");
 		createRenderLayers(0b1010_1111, path + "corners_topright_bottomleft");
-		createRenderLayers(0b1111_1111, path + "invisible");
 	}
 
 	public EchoBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher)
