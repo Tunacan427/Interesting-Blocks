@@ -75,7 +75,7 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 														{ 1, 0, 0, 1, 8, 8 }
 													};
 
-	public static final String[] RENDERLAYER_NAMES = new String[767];
+	public static final String[] RENDERLAYER_NAMES = new String[768];
 
 	static
 	{
@@ -148,7 +148,7 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 		renderCube(blockEntity.getWorld(),
 					blockEntity.getPos(),
 					blockEntity.getWorld().getBlockState(blockEntity.getPos()),
-					((int) ((blockEntity.getWorld().getTime() + tickDelta) / 10f)) % 3 * 16,
+					((int) ((blockEntity.getWorld().getTime() + tickDelta) / 10f)) % 3 * 256,
 					matrixStack.peek().getModel(),
 					vertexConsumerProvider,
 					blockEntity::shouldDrawSide);
