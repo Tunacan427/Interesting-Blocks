@@ -5,6 +5,7 @@ import java.util.function.Function;
 import mod.pixelstorm.interestingblocks.InterestingBlocks;
 import mod.pixelstorm.interestingblocks.block.ConnectedBlock;
 import mod.pixelstorm.interestingblocks.block.entity.EchoBlockEntity;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
@@ -19,6 +20,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity>
@@ -75,6 +77,8 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 													};
 
 	public static final String[] RENDERLAYER_NAMES = new String[768];
+
+	public static final Block ECHO_BLOCK = Registry.BLOCK.get(new Identifier(InterestingBlocks.MOD_ID, "echo_block"));
 
 	private static final Direction[] DIRECTIONS = Direction.values();
 
@@ -151,10 +155,17 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 	@Override
 	public void render(EchoBlockEntity blockEntity, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, int overlay)
 	{
-		renderCube(blockEntity.getWorld(),
-					blockEntity.getPos(),
-					blockEntity.getWorld().getBlockState(blockEntity.getPos()),
-					((int) ((blockEntity.getWorld().getTime() + tickDelta) / 10f)) % 3 * 256,
+		World world = blockEntity.getWorld();
+		BlockPos pos = blockEntity.getPos();
+		BlockState state = world.getBlockState(pos);
+
+		if(state.getBlock() != ECHO_BLOCK)
+			return;
+
+		renderCube(world,
+					pos,
+					state,
+					((int) ((world.getTime() + tickDelta) / 10f)) % 3 * 256,
 					matrixStack.peek().getModel(),
 					vertexConsumerProvider,
 					blockEntity::shouldDrawSide);
@@ -226,12 +237,15 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 				int directionId = direction.getId();
 				int dId = d.getId();
 
-				Direction diagonal = PERPENDICULAR[directionId / 2][dId / 2];
-				Direction oppositeDiagonal = diagonal.getOpposite();
+				packedIndex |= PACKING_FLAGS[directionId][dId];
 
 				BlockState adjacentState = world.getBlockState(blockPos.offset(d));
 
-				packedIndex |= PACKING_FLAGS[directionId][dId];
+				if(adjacentState.getBlock() != ECHO_BLOCK)
+					continue;
+
+				Direction diagonal = PERPENDICULAR[directionId / 2][dId / 2];
+				Direction oppositeDiagonal = diagonal.getOpposite();
 
 				if(adjacentState.get(ConnectedBlock.FACING_PROPERTIES.get(diagonal)))
 					packedIndex |= DIAGONAL_PACKING_FLAGS[directionId][DIAGONAL_INDEXES[dId][diagonal.getId()]];
