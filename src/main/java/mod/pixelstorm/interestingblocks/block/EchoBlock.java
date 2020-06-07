@@ -18,6 +18,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 public class EchoBlock extends ConnectedBlock implements BlockEntityProvider
@@ -45,6 +46,16 @@ public class EchoBlock extends ConnectedBlock implements BlockEntityProvider
 	public BlockEntity createBlockEntity(BlockView blockView)
 	{
 		return new EchoBlockEntity();
+	}
+
+	@Override
+	public BlockState getStateForNeighborUpdate(BlockState state, Direction facing, BlockState neighborState, IWorld world, BlockPos pos, BlockPos neighborPos)
+	{
+		BlockEntity blockEntity = world.getBlockEntity(pos);
+		if(blockEntity instanceof EchoBlockEntity)
+			((EchoBlockEntity) blockEntity).markDirty();
+
+		return super.getStateForNeighborUpdate(state, facing, neighborState, world, pos, neighborPos);
 	}
 
 	@Environment(EnvType.CLIENT)

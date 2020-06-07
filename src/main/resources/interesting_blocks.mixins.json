@@ -6,6 +6,7 @@
 	"client" : [
 		"MixinBuiltinModelItemRenderer",
 		"MixinMinecraftClient",
+		"MixinVertexConsumerProvider",
 		"MixinWorldRenderer"
 	],
 	"server" : [],

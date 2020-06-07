@@ -12,6 +12,9 @@ public class EchoBlockEntity extends BlockEntity
 {
 	public static BlockEntityType blockEntityType;
 
+	public boolean isDirty = true;
+	public int[] cachedIndexes = new int[6];
+
 	public EchoBlockEntity()
 	{
 		super(blockEntityType);
@@ -22,5 +25,12 @@ public class EchoBlockEntity extends BlockEntity
 	{
 		BlockState state = world.getBlockState(getPos());
 		return state.getBlock().shouldDrawSide(state, (BlockView) world, getPos(), direction);
+	}
+
+	@Override
+	public void markDirty()
+	{
+		super.markDirty();
+		isDirty = true;
 	}
 }

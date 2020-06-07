@@ -1,12 +1,12 @@
 package mod.pixelstorm.interestingblocks.client.render.block.entity;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import java.util.function.Function;
 import mod.pixelstorm.interestingblocks.InterestingBlocks;
 import mod.pixelstorm.interestingblocks.block.ConnectedBlock;
 import mod.pixelstorm.interestingblocks.block.entity.EchoBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexConsumer;
@@ -20,7 +20,9 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity>
@@ -31,6 +33,8 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 																								RenderSystem.defaultBlendFunc();
 																							},
 																							() -> RenderSystem.disableBlend());
+
+	public static final RenderPhase.Alpha HALF_ALPHA = new RenderPhase.Alpha(0.5f);
 
 	public static final Direction[][] PERPENDICULAR =	{
 															{
@@ -79,6 +83,8 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 	public static final RenderLayer[] RENDERLAYERS = new RenderLayer[768];
 
 	public static final Block ECHO_BLOCK = Registry.BLOCK.get(new Identifier(InterestingBlocks.MOD_ID, "echo_block"));
+
+	public static final VertexFormat FORMAT = VertexFormats.POSITION_TEXTURE;
 
 	private static final Direction[] DIRECTIONS = Direction.values();
 
@@ -162,34 +168,46 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 		if(state.getBlock() != ECHO_BLOCK)
 			return;
 
-		renderCube(world,
+		renderCube(blockEntity,
+					world,
 					pos,
 					state,
 					((int) ((world.getTime() + tickDelta) / 10f)) % 3 * 256,
 					matrixStack.peek().getModel(),
-					vertexConsumerProvider,
-					blockEntity::shouldDrawSide);
+					vertexConsumerProvider);
 	}
 
-	private static void renderCube(World world, BlockPos blockPos, BlockState state, int frame, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider, Function<Direction, Boolean> shouldDrawSide)
+	private static void renderCube(EchoBlockEntity blockEntity, World world, BlockPos blockPos, BlockState state, int frame, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider)
 	{
-		renderFace(world, blockPos, state, Direction.NORTH,	frame, matrix, vertexConsumerProvider, 0, 1, 1, 0, 0, 0, 0, 0, shouldDrawSide);
-		renderFace(world, blockPos, state, Direction.EAST,	frame, matrix, vertexConsumerProvider, 1, 1, 1, 0, 0, 1, 1, 0, shouldDrawSide);
-		renderFace(world, blockPos, state, Direction.SOUTH,	frame, matrix, vertexConsumerProvider, 0, 1, 0, 1, 1, 1, 1, 1, shouldDrawSide);
-		renderFace(world, blockPos, state, Direction.WEST,	frame, matrix, vertexConsumerProvider, 0, 0, 0, 1, 0, 1, 1, 0, shouldDrawSide);
-		renderFace(world, blockPos, state, Direction.DOWN,	frame, matrix, vertexConsumerProvider, 0, 1, 0, 0, 0, 0, 1, 1, shouldDrawSide);
-		renderFace(world, blockPos, state, Direction.UP,	frame, matrix, vertexConsumerProvider, 0, 1, 1, 1, 1, 1, 0, 0, shouldDrawSide);
+		BufferBuilder consumer = (BufferBuilder) vertexConsumerProvider.getBuffer(null);
+		renderFace(consumer, blockEntity, world, blockPos, state, Direction.NORTH,	frame, matrix, vertexConsumerProvider, 0, 1, 1, 0, 0, 0, 0, 0);
+		renderFace(consumer, blockEntity, world, blockPos, state, Direction.EAST,		frame, matrix, vertexConsumerProvider, 1, 1, 1, 0, 0, 1, 1, 0);
+		renderFace(consumer, blockEntity, world, blockPos, state, Direction.SOUTH,	frame, matrix, vertexConsumerProvider, 0, 1, 0, 1, 1, 1, 1, 1);
+		renderFace(consumer, blockEntity, world, blockPos, state, Direction.WEST,		frame, matrix, vertexConsumerProvider, 0, 0, 0, 1, 0, 1, 1, 0);
+		renderFace(consumer, blockEntity, world, blockPos, state, Direction.DOWN,		frame, matrix, vertexConsumerProvider, 0, 1, 0, 0, 0, 0, 1, 1);
+		renderFace(consumer, blockEntity, world, blockPos, state, Direction.UP,		frame, matrix, vertexConsumerProvider, 0, 1, 1, 1, 1, 1, 0, 0);
+		blockEntity.isDirty = false;
 	}
 
-	private static void renderFace(World world, BlockPos blockPos, BlockState state, Direction direction, int frame, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider, float x1, float x2, float y1, float y2, float z1, float z2, float z3, float z4, Function<Direction, Boolean> shouldDrawSide)
+	private static void renderFace(BufferBuilder vertexConsumer, EchoBlockEntity blockEntity, World world, BlockPos blockPos, BlockState state, Direction direction, int frame, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider, float x1, float x2, float y1, float y2, float z1, float z2, float z3, float z4)
 	{
-		if(shouldDrawSide.apply(direction))
+		if(blockEntity.isDirty)
+			blockEntity.cachedIndexes[direction.getId()] = getRenderLayerIndex(world, blockPos, state, direction);
+
+		int index = blockEntity.cachedIndexes[direction.getId()];
+		if(index != 255 && state.getBlock().shouldDrawSide(state, (BlockView) world, blockPos, direction))
 		{
-			VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(getRenderLayer(world, blockPos, state, direction, frame));
-			vertexConsumer.vertex(matrix, x1, y1, z1).color(255, 255, 255, 255).texture(0f, 0f).next();
-			vertexConsumer.vertex(matrix, x2, y1, z2).color(255, 255, 255, 255).texture(1f, 0f).next();
-			vertexConsumer.vertex(matrix, x2, y2, z3).color(255, 255, 255, 255).texture(1f, 1f).next();
-			vertexConsumer.vertex(matrix, x1, y2, z4).color(255, 255, 255, 255).texture(0f, 1f).next();
+			if(vertexConsumer.isBuilding())
+				((VertexConsumerProvider.Immediate) vertexConsumerProvider).draw();
+
+			vertexConsumer.begin(7, FORMAT);
+
+			vertexConsumer.vertex(matrix, x1, y1, z1).texture(0, 0).next();
+			vertexConsumer.vertex(matrix, x2, y1, z2).texture(1, 0).next();
+			vertexConsumer.vertex(matrix, x2, y2, z3).texture(1, 1).next();
+			vertexConsumer.vertex(matrix, x1, y2, z4).texture(0, 1).next();
+
+			RENDERLAYERS[index | frame].draw(vertexConsumer, 0, 0, 0);
 		}
 	}
 
@@ -200,13 +218,11 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 
 	private static void createRenderLayers(int baseIndex, String id, int extraIndexes)
 	{
-		VertexFormat format = VertexFormats.POSITION_COLOR_TEXTURE;
-
 		if(extraIndexes == 0)
 		{
-			RENDERLAYERS[baseIndex] = getRenderLayer(id + "_1.png", format);
-			RENDERLAYERS[baseIndex | 0b01_0000_0000] = getRenderLayer(id + "_2.png", format);
-			RENDERLAYERS[baseIndex | 0b10_0000_0000] = getRenderLayer(id + "_3.png", format);
+			RENDERLAYERS[baseIndex] = getRenderLayer(id + "_1.png");
+			RENDERLAYERS[baseIndex | 0b01_0000_0000] = getRenderLayer(id + "_2.png");
+			RENDERLAYERS[baseIndex | 0b10_0000_0000] = getRenderLayer(id + "_3.png");
 		}
 		else
 		{
@@ -214,21 +230,22 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 			{
 				int flag = (i & extraIndexes) << 4;
 
-				RENDERLAYERS[flag | baseIndex] = getRenderLayer(id + "_1.png", format);
-				RENDERLAYERS[flag | baseIndex | 0b01_0000_0000] = getRenderLayer(id + "_2.png", format);
-				RENDERLAYERS[flag | baseIndex | 0b10_0000_0000] = getRenderLayer(id + "_3.png", format);
+				RENDERLAYERS[flag | baseIndex] = getRenderLayer(id + "_1.png");
+				RENDERLAYERS[flag | baseIndex | 0b01_0000_0000] = getRenderLayer(id + "_2.png");
+				RENDERLAYERS[flag | baseIndex | 0b10_0000_0000] = getRenderLayer(id + "_3.png");
 			}
 		}
 	}
 
-	public static RenderLayer getRenderLayer(String id, VertexFormat format)
+	public static RenderLayer getRenderLayer(String id)
 	{
 		Identifier identifier = new Identifier(InterestingBlocks.MOD_ID, id);
-		return RenderLayer.of(id, format, 7, format.getVertexSize(), RenderLayer.MultiPhaseParameters.builder().texture(new RenderPhase.Texture(identifier, false, false)).transparency(TRANSLUCENCE).build(false));
+		return RenderLayer.of(id, FORMAT, 7, FORMAT.getVertexSize(), RenderLayer.MultiPhaseParameters.builder().texture(new RenderPhase.Texture(identifier, false, false)).alpha(HALF_ALPHA).build(false));
 	}
 
-	public static RenderLayer getRenderLayer(World world, BlockPos blockPos, BlockState state, Direction direction, int packedIndex)
+	public static int getRenderLayerIndex(World world, BlockPos blockPos, BlockState state, Direction direction)
 	{
+		int packedIndex = 0;
 		for(Direction d : DIRECTIONS)
 		{
 			if(d == direction || d == direction.getOpposite())
@@ -257,6 +274,6 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 			}
 		}
 
-		return RENDERLAYERS[packedIndex];
+		return packedIndex;
 	}
 }
