@@ -6,6 +6,7 @@
 	"client" : [
 		"MixinBuiltinModelItemRenderer",
 		"MixinMinecraftClient",
+		"MixinModelLoader",
 		"MixinMultiPhase",
 		"MixinMultiPhaseParameters",
 		"MixinVertexConsumerProvider",

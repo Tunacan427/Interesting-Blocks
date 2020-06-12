@@ -9,6 +9,8 @@ import mod.pixelstorm.interestingblocks.mixin.MixinMultiPhase;
 import mod.pixelstorm.interestingblocks.mixin.MixinMultiPhaseParameters;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.BufferRenderer;
 import net.minecraft.client.render.RenderLayer;
@@ -19,11 +21,13 @@ import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.math.Matrix4f;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -83,6 +87,8 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 	private static final Direction[] DIRECTIONS = Direction.values();
 
 	private static final RenderPhase[][] LAYERPHASES = new RenderPhase[786][15];
+
+	private static final Identifier[] IDENTIFIERS = new Identifier[786];
 
 	static
 	{
@@ -158,63 +164,150 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 	public void render(EchoBlockEntity blockEntity, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, int overlay)
 	{
 		World world = blockEntity.getWorld();
+
+		Profiler profiler = world.getProfiler();
+
+		profiler.push("EchoBlock");
+
+		profiler.push("Prep");
+
 		BlockPos pos = blockEntity.getPos();
-		BlockState state = world.getBlockState(pos);
+		BlockState state = blockEntity.getCachedState();
 
 		if(state.getBlock() != ECHO_BLOCK)
 			return;
 
-		renderCube(blockEntity,
+		renderCube(profiler, blockEntity,
 					world,
 					pos,
 					state,
 					((int) ((world.getTime() + tickDelta) / 10f)) % 3 * 256,
 					matrixStack.peek().getModel(),
 					vertexConsumerProvider);
+
+		profiler.pop();
+		profiler.pop();
 	}
 
-	private static void renderCube(EchoBlockEntity blockEntity, World world, BlockPos blockPos, BlockState state, int frame, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider)
+	private static void renderCube(Profiler profiler, EchoBlockEntity blockEntity, World world, BlockPos blockPos, BlockState state, int frame, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider)
 	{
-		BufferBuilder consumer = (BufferBuilder) vertexConsumerProvider.getBuffer(null);
-		renderFace(consumer, blockEntity, world, blockPos, state, Direction.NORTH,	frame, matrix, vertexConsumerProvider, 0, 1, 1, 0, 0, 0, 0, 0);
-		renderFace(consumer, blockEntity, world, blockPos, state, Direction.EAST,	frame, matrix, vertexConsumerProvider, 1, 1, 1, 0, 0, 1, 1, 0);
-		renderFace(consumer, blockEntity, world, blockPos, state, Direction.SOUTH,	frame, matrix, vertexConsumerProvider, 0, 1, 0, 1, 1, 1, 1, 1);
-		renderFace(consumer, blockEntity, world, blockPos, state, Direction.WEST,	frame, matrix, vertexConsumerProvider, 0, 0, 0, 1, 0, 1, 1, 0);
-		renderFace(consumer, blockEntity, world, blockPos, state, Direction.DOWN,	frame, matrix, vertexConsumerProvider, 0, 1, 0, 0, 0, 0, 1, 1);
-		renderFace(consumer, blockEntity, world, blockPos, state, Direction.UP,		frame, matrix, vertexConsumerProvider, 0, 1, 1, 1, 1, 1, 0, 0);
+		profiler.swap("Render");
+
+		BufferBuilder vertexConsumer = (BufferBuilder) vertexConsumerProvider.getBuffer(null);
+
+		profiler.push("Prep");
+
+		renderFace(profiler, vertexConsumer, blockEntity, world, blockPos, state, Direction.NORTH,	frame, matrix, vertexConsumerProvider, 0, 1, 1, 0, 0, 0, 0, 0);
+		renderFace(profiler, vertexConsumer, blockEntity, world, blockPos, state, Direction.EAST,		frame, matrix, vertexConsumerProvider, 1, 1, 1, 0, 0, 1, 1, 0);
+		renderFace(profiler, vertexConsumer, blockEntity, world, blockPos, state, Direction.SOUTH,	frame, matrix, vertexConsumerProvider, 0, 1, 0, 1, 1, 1, 1, 1);
+		renderFace(profiler, vertexConsumer, blockEntity, world, blockPos, state, Direction.WEST,		frame, matrix, vertexConsumerProvider, 0, 0, 0, 1, 0, 1, 1, 0);
+		renderFace(profiler, vertexConsumer, blockEntity, world, blockPos, state, Direction.DOWN,		frame, matrix, vertexConsumerProvider, 0, 1, 0, 0, 0, 0, 1, 1);
+		renderFace(profiler, vertexConsumer, blockEntity, world, blockPos, state, Direction.UP,		frame, matrix, vertexConsumerProvider, 0, 1, 1, 1, 1, 1, 0, 0);
+
 		blockEntity.isDirty = false;
+
+		profiler.pop();
 	}
 
-	private static void renderFace(BufferBuilder vertexConsumer, EchoBlockEntity blockEntity, World world, BlockPos blockPos, BlockState state, Direction direction, int frame, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider, float x1, float x2, float y1, float y2, float z1, float z2, float z3, float z4)
+	private static void renderFace(Profiler profiler, BufferBuilder vertexConsumer, EchoBlockEntity blockEntity, World world, BlockPos blockPos, BlockState state, Direction direction, int frame, Matrix4f matrix, VertexConsumerProvider vertexConsumerProvider, float x1, float x2, float y1, float y2, float z1, float z2, float z3, float z4)
 	{
 		if(blockEntity.isDirty)
 			blockEntity.cachedIndexes[direction.getId()] = getRenderLayerIndex(world, blockPos, state, direction);
 
 		int index = blockEntity.cachedIndexes[direction.getId()];
-		if(index != 255 && state.getBlock().shouldDrawSide(state, (BlockView) world, blockPos, direction))
-		{
-			if(vertexConsumer.isBuilding())
-				((VertexConsumerProvider.Immediate) vertexConsumerProvider).draw();
+		if(index == 255 || state.isSideInvisible(world.getBlockState(blockPos.offset(direction)), direction))
+			return;
 
-			vertexConsumer.begin(7, FORMAT);
+		if(vertexConsumer.isBuilding())
+			((VertexConsumerProvider.Immediate) vertexConsumerProvider).draw();
 
-			vertexConsumer.vertex(matrix, x1, y1, z1).texture(0, 0).next();
-			vertexConsumer.vertex(matrix, x2, y1, z2).texture(1, 0).next();
-			vertexConsumer.vertex(matrix, x2, y2, z3).texture(1, 1).next();
-			vertexConsumer.vertex(matrix, x1, y2, z4).texture(0, 1).next();
+		profiler.swap("Vertex");
 
-			vertexConsumer.end();
+		vertexConsumer.begin(7, FORMAT);
+		vertexConsumer.vertex(matrix, x1, y1, z1).texture(0, 0).next();
+		vertexConsumer.vertex(matrix, x2, y1, z2).texture(1, 0).next();
+		vertexConsumer.vertex(matrix, x2, y2, z3).texture(1, 1).next();
+		vertexConsumer.vertex(matrix, x1, y2, z4).texture(0, 1).next();
+		vertexConsumer.end();
 
-			RenderPhase[] phases = LAYERPHASES[index | frame];
+		//RenderPhase[] phases = LAYERPHASES[index | frame];
 
-			for(RenderPhase phase : phases)
-				phase.startDrawing();
+		profiler.swap("Setup draw");
 
-			BufferRenderer.draw(vertexConsumer);
+		//for(RenderPhase phase : phases)
+		//	phase.startDrawing();
 
-			for(RenderPhase phase : phases)
-				phase.endDrawing();
-		}
+		setupDrawState(IDENTIFIERS[index | frame], profiler);
+
+		profiler.swap("Draw");
+
+		BufferRenderer.draw(vertexConsumer);
+
+		profiler.swap("Teardown draw");
+
+		//for(RenderPhase phase : phases)
+		//	phase.endDrawing();
+
+		teardownDrawState(profiler);
+
+		profiler.swap("Prep");
+	}
+
+	private static void setupDrawState(Identifier identifier, Profiler profiler)
+	{
+		// Texture
+		profiler.push("Texture");
+		RenderSystem.enableTexture();
+		MinecraftClient.getInstance().getTextureManager().bindTexture(identifier);
+
+		// Transparency
+		profiler.swap("Transparency");
+		RenderSystem.disableBlend();
+
+		// ShadeModel
+		profiler.swap("ShadeModel");
+		RenderSystem.shadeModel(7424);
+
+		// Alpha
+		profiler.swap("Alpha");
+		RenderSystem.enableAlphaTest();
+		RenderSystem.alphaFunc(516, 0.1f);
+
+		// DepthTest
+		profiler.swap("DepthTest");
+		RenderSystem.enableDepthTest();
+		RenderSystem.depthFunc(515);
+
+		// Cull
+		profiler.swap("Cull");
+		RenderSystem.enableCull();
+
+		// Fog
+		profiler.swap("Fog");
+		RenderSystem.enableFog();
+
+		profiler.pop();
+	}
+
+	private static void teardownDrawState(Profiler profiler)
+	{
+		// Alpha
+		profiler.push("Alpha");
+		RenderSystem.disableAlphaTest();
+
+		// DepthTest
+		profiler.swap("DepthTest");
+		RenderSystem.disableDepthTest();
+
+		// Cull
+		profiler.swap("Cull");
+		RenderSystem.disableCull();
+
+		// Fog
+		profiler.swap("Fog");
+		RenderSystem.disableFog();
+
+		profiler.pop();
 	}
 
 	private static void createRenderLayers(int baseIndex, String id)
@@ -226,9 +319,13 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 	{
 		if(extraIndexes == 0)
 		{
-			getRenderPhases(getRenderLayer(id + "_1.png")).toArray(LAYERPHASES[baseIndex]);
-			getRenderPhases(getRenderLayer(id + "_2.png")).toArray(LAYERPHASES[baseIndex | 0b01_0000_0000]);
-			getRenderPhases(getRenderLayer(id + "_3.png")).toArray(LAYERPHASES[baseIndex | 0b10_0000_0000]);
+			IDENTIFIERS[baseIndex] = new Identifier(InterestingBlocks.MOD_ID, id + "_1.png");
+			IDENTIFIERS[baseIndex | 0b01_0000_0000] = new Identifier(InterestingBlocks.MOD_ID, id + "_2.png");
+			IDENTIFIERS[baseIndex | 0b10_0000_0000] = new Identifier(InterestingBlocks.MOD_ID, id + "_3.png");
+
+			//getRenderPhases(getRenderLayer(id + "_1.png")).toArray(LAYERPHASES[baseIndex]);
+			//getRenderPhases(getRenderLayer(id + "_2.png")).toArray(LAYERPHASES[baseIndex | 0b01_0000_0000]);
+			//getRenderPhases(getRenderLayer(id + "_3.png")).toArray(LAYERPHASES[baseIndex | 0b10_0000_0000]);
 		}
 		else
 		{
@@ -236,9 +333,13 @@ public class EchoBlockEntityRenderer extends BlockEntityRenderer<EchoBlockEntity
 			{
 				int flag = (i & extraIndexes) << 4;
 
-				getRenderPhases(getRenderLayer(id + "_1.png")).toArray(LAYERPHASES[flag | baseIndex]);
-				getRenderPhases(getRenderLayer(id + "_2.png")).toArray(LAYERPHASES[flag | baseIndex | 0b01_0000_0000]);
-				getRenderPhases(getRenderLayer(id + "_3.png")).toArray(LAYERPHASES[flag | baseIndex | 0b10_0000_0000]);
+				IDENTIFIERS[flag | baseIndex] = new Identifier(InterestingBlocks.MOD_ID, id + "_1.png");
+				IDENTIFIERS[flag | baseIndex | 0b01_0000_0000] = new Identifier(InterestingBlocks.MOD_ID, id + "_2.png");
+				IDENTIFIERS[flag | baseIndex | 0b10_0000_0000] = new Identifier(InterestingBlocks.MOD_ID, id + "_3.png");
+
+				//getRenderPhases(getRenderLayer(id + "_1.png")).toArray(LAYERPHASES[flag | baseIndex]);
+				//getRenderPhases(getRenderLayer(id + "_2.png")).toArray(LAYERPHASES[flag | baseIndex | 0b01_0000_0000]);
+				//getRenderPhases(getRenderLayer(id + "_3.png")).toArray(LAYERPHASES[flag | baseIndex | 0b10_0000_0000]);
 			}
 		}
 	}

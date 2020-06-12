@@ -20,13 +20,6 @@ public class EchoBlockEntity extends BlockEntity
 		super(blockEntityType);
 	}
 
-	@Environment(EnvType.CLIENT)
-	public boolean shouldDrawSide(Direction direction)
-	{
-		BlockState state = world.getBlockState(getPos());
-		return state.getBlock().shouldDrawSide(state, (BlockView) world, getPos(), direction);
-	}
-
 	@Override
 	public void markDirty()
 	{

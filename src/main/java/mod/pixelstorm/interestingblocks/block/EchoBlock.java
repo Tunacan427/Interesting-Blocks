@@ -2,9 +2,12 @@ package mod.pixelstorm.interestingblocks.block;
 
 import java.util.Random;
 import mod.pixelstorm.interestingblocks.block.entity.EchoBlockEntity;
+import mod.pixelstorm.interestingblocks.client.render.model.EchoBlockBakedModel;
+import mod.pixelstorm.interestingblocks.client.render.model.EchoBlockSpriteManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.AbstractGlassBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
@@ -21,7 +24,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-public class EchoBlock extends ConnectedBlock implements BlockEntityProvider
+public class EchoBlock extends AbstractGlassBlock
 {
 	public static final FabricBlockSettings DEFAULT_SETTINGS = FabricBlockSettings.of(Material.GLASS).strength(0.8F).nonOpaque().lightLevel(3).sounds(BlockSoundGroup.GLASS);
 
@@ -35,34 +38,13 @@ public class EchoBlock extends ConnectedBlock implements BlockEntityProvider
 		super(settings);
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Override
-	public float getAmbientOcclusionLightLevel(BlockState state, BlockView view, BlockPos pos)
-	{
-		return 1.0F;
-	}
-
-	@Override
-	public BlockEntity createBlockEntity(BlockView blockView)
-	{
-		return new EchoBlockEntity();
-	}
-
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction facing, BlockState neighborState, IWorld world, BlockPos pos, BlockPos neighborPos)
 	{
-		BlockEntity blockEntity = world.getBlockEntity(pos);
-		if(blockEntity instanceof EchoBlockEntity)
-			((EchoBlockEntity) blockEntity).markDirty();
+		if(world.isClient())
+			EchoBlockSpriteManager.updatePos(state, pos, world);
 
 		return super.getStateForNeighborUpdate(state, facing, neighborState, world, pos, neighborPos);
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public boolean isSideInvisible(BlockState state, BlockState neighbor, Direction facing)
-	{
-		return (neighbor.getBlock() == this) ? true : super.isSideInvisible(state, neighbor, facing);
 	}
 
 	@Override
@@ -87,26 +69,5 @@ public class EchoBlock extends ConnectedBlock implements BlockEntityProvider
 
 			//world.addParticle(ParticleTypes.DRAGON_BREATH, x + pos.getX(), y + pos.getY(), z + pos.getZ(), velX * 0.05, velY * 0.05, velZ * 0.05);
 		}
-	}
-
-	@Override
-	public BlockRenderType getRenderType(BlockState state)
-	{
-		return BlockRenderType.INVISIBLE;
-	}
-
-	@Override
-	public boolean onBlockAction(BlockState state, World world, BlockPos pos, int type, int data)
-	{
-		super.onBlockAction(state, world, pos, type, data);
-		BlockEntity blockEntity = world.getBlockEntity(pos);
-		return (blockEntity == null) ? false : blockEntity.onBlockAction(type, data);
-	}
-
-	@Override
-	public NameableContainerFactory createContainerFactory(BlockState state, World world, BlockPos pos)
-	{
-		BlockEntity blockEntity = world.getBlockEntity(pos);
-		return (blockEntity instanceof NameableContainerFactory) ? (NameableContainerFactory) blockEntity : null;
 	}
 }
