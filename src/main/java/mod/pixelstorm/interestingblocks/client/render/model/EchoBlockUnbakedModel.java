@@ -35,7 +35,13 @@ public class EchoBlockUnbakedModel implements UnbakedModel
 	@Override
 	public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences)
 	{
-		return Arrays.asList(EchoBlockSpriteManager.getSpriteIdentifiers());
+		Collection<SpriteIdentifier> dependencies = wrapped.getTextureDependencies(unbakedModelGetter, unresolvedTextureReferences);
+		dependencies.addAll(Arrays.asList(EchoBlockSpriteManager.getSpriteIdentifiers()));
+
+		for(SpriteIdentifier id : dependencies)
+			InterestingBlocks.log(Level.INFO, id.toString());
+
+		return dependencies;
 	}
 
 	@Override

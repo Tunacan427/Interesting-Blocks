@@ -31,7 +31,7 @@ public class EchoBlockBakedModel extends ForwardingBakedModel
 
 		EchoBlockSpriteManager.updateSpriteGetter(spriteGetter);
 
-		SPRITE = spriteGetter.apply(new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEX, new Identifier(InterestingBlocks.MOD_ID, "block/echo/bottom_cap_1")));
+		SPRITE = spriteGetter.apply(EchoBlockSpriteManager.getSpriteIdentifiers()[0]);
 	}
 
 	@Override
