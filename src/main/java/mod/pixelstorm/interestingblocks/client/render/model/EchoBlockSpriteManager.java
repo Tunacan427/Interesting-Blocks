@@ -16,7 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
-import org.apache.logging.log4j.Level;
 
 @Environment(EnvType.CLIENT)
 public class EchoBlockSpriteManager

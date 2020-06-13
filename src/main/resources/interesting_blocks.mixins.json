@@ -7,9 +7,6 @@
 		"MixinBuiltinModelItemRenderer",
 		"MixinMinecraftClient",
 		"MixinModelLoader",
-		"MixinMultiPhase",
-		"MixinMultiPhaseParameters",
-		"MixinVertexConsumerProvider",
 		"MixinWorldRenderer"
 	],
 	"server" : [],

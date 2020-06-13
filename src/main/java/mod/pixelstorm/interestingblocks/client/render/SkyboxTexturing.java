@@ -4,10 +4,13 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
+import net.fabricmc.api.Environment;
+import net.fabricmc.api.EnvType;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.util.GlAllocationUtils;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class SkyboxTexturing extends RenderPhase.Texturing
 {
 	public static final FloatBuffer buffer = GlAllocationUtils.allocateFloatBuffer(4);

@@ -3,6 +3,8 @@ package mod.pixelstorm.interestingblocks.mixin;
 import mod.pixelstorm.interestingblocks.InterestingBlocks;
 import mod.pixelstorm.interestingblocks.client.render.EndPortalRenderer;
 import mod.pixelstorm.interestingblocks.client.render.block.entity.SkyboxBlockEntityRenderer;
+import net.fabricmc.api.Environment;
+import net.fabricmc.api.EnvType;
 import net.minecraft.block.Block;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.BuiltinModelItemRenderer;
@@ -17,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.apache.logging.log4j.Level;
 
+@Environment(EnvType.CLIENT)
 @Mixin(BuiltinModelItemRenderer.class)
 public class MixinBuiltinModelItemRenderer
 {

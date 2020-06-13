@@ -4,6 +4,8 @@ import java.util.function.Function;
 import mod.pixelstorm.interestingblocks.block.entity.SkyboxBlockEntity;
 import mod.pixelstorm.interestingblocks.client.render.SkyboxTexturing;
 import mod.pixelstorm.interestingblocks.client.texture.SkyboxBlockTexture;
+import net.fabricmc.api.Environment;
+import net.fabricmc.api.EnvType;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexConsumer;
@@ -15,6 +17,7 @@ import net.minecraft.client.util.math.Matrix4f;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Direction;
 
+@Environment(EnvType.CLIENT)
 public class SkyboxBlockEntityRenderer extends BlockEntityRenderer<SkyboxBlockEntity>
 {
 	public static final RenderLayer SKYBOX_RENDERLAYER = RenderLayer.of("skybox", VertexFormats.POSITION_COLOR, 7, 256, RenderLayer.MultiPhaseParameters.builder().texture(new RenderPhase.Texture(SkyboxBlockTexture.ID, false, false)).texturing(new SkyboxTexturing()).build(false));

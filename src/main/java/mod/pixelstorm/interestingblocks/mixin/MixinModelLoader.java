@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.apache.logging.log4j.Level;
 
-@Mixin(ModelLoader.class)
 @Environment(EnvType.CLIENT)
+@Mixin(ModelLoader.class)
 public class MixinModelLoader
 {
 	private static final ModelIdentifier ECHO_BLOCK_ID = new ModelIdentifier(InterestingBlocks.MOD_ID + ":echo_block#");

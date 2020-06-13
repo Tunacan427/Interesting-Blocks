@@ -1,26 +1,17 @@
 package mod.pixelstorm.interestingblocks.block;
 
 import java.util.Random;
-import mod.pixelstorm.interestingblocks.block.entity.EchoBlockEntity;
-import mod.pixelstorm.interestingblocks.client.render.model.EchoBlockBakedModel;
 import mod.pixelstorm.interestingblocks.client.render.model.EchoBlockSpriteManager;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractGlassBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.container.NameableContainerFactory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
@@ -55,17 +46,19 @@ public class EchoBlock extends AbstractGlassBlock
 		if(!world.isClient)
 			return;
 
+		Random random = world.random;
+
 		for(int i = 0; i < 12; ++i)
 		{
 			// Spawn particles at random points within the block's bounds
-			double x = world.random.nextDouble();
-			double y = world.random.nextDouble();
-			double z = world.random.nextDouble();
+			double x = random.nextDouble();
+			double y = random.nextDouble();
+			double z = random.nextDouble();
 
 			// Random velocities pointing away from block center
-			double velX = (x - 0.5) * world.random.nextDouble();
-			double velY = (y - 0.5) * world.random.nextDouble();
-			double velZ = (z - 0.5) * world.random.nextDouble();
+			double velX = (x - 0.5) * random.nextDouble();
+			double velY = (y - 0.5) * random.nextDouble();
+			double velZ = (z - 0.5) * random.nextDouble();
 
 			//world.addParticle(ParticleTypes.DRAGON_BREATH, x + pos.getX(), y + pos.getY(), z + pos.getZ(), velX * 0.05, velY * 0.05, velZ * 0.05);
 		}

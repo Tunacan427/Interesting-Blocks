@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(MinecraftClient.class)
 @Environment(EnvType.CLIENT)
+@Mixin(MinecraftClient.class)
 public class MixinMinecraftClient
 {
 	@Inject(method = "<init>", at = @At("RETURN"))
