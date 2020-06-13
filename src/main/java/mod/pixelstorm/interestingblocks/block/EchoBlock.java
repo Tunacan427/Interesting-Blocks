@@ -48,19 +48,21 @@ public class EchoBlock extends AbstractGlassBlock
 
 		Random random = world.random;
 
-		for(int i = 0; i < 12; ++i)
+		for(int i = 0; i < 24; ++i)
 		{
 			// Spawn particles at random points within the block's bounds
 			double x = random.nextDouble();
 			double y = random.nextDouble();
 			double z = random.nextDouble();
 
-			// Random velocities pointing away from block center
-			double velX = (x - 0.5) * random.nextDouble();
-			double velY = (y - 0.5) * random.nextDouble();
-			double velZ = (z - 0.5) * random.nextDouble();
+			double scalar = 1.5;
 
-			//world.addParticle(ParticleTypes.DRAGON_BREATH, x + pos.getX(), y + pos.getY(), z + pos.getZ(), velX * 0.05, velY * 0.05, velZ * 0.05);
+			// Random velocities pointing away from block center
+			double velX = (x - 0.5) * random.nextDouble() * scalar;
+			double velY = (y - 0.5) * random.nextDouble() * scalar;
+			double velZ = (z - 0.5) * random.nextDouble() * scalar;
+
+			world.addParticle(ParticleTypes.ENCHANTED_HIT, x + pos.getX(), y + pos.getY(), z + pos.getZ(), velX, velY, velZ);
 		}
 	}
 }

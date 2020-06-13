@@ -50,12 +50,14 @@ public class SkyboxBlock extends BlockWithEntity
 			double y = world.random.nextDouble();
 			double z = world.random.nextDouble();
 
-			// Random velocities pointing away from block center
-			double velX = (x - 0.5) * world.random.nextDouble();
-			double velY = (y - 0.5) * world.random.nextDouble();
-			double velZ = (z - 0.5) * world.random.nextDouble();
+			double scalar = 0.1;
 
-			world.addParticle(ParticleTypes.END_ROD, x + pos.getX(), y + pos.getY(), z + pos.getZ(), velX * 0.1, velY * 0.1, velZ * 0.1);
+			// Random velocities pointing away from block center
+			double velX = (x - 0.5) * world.random.nextDouble() * scalar;
+			double velY = (y - 0.5) * world.random.nextDouble() * scalar;
+			double velZ = (z - 0.5) * world.random.nextDouble() * scalar;
+
+			world.addParticle(ParticleTypes.END_ROD, x + pos.getX(), y + pos.getY(), z + pos.getZ(), velX, velY, velZ);
 		}
 	}
 }
