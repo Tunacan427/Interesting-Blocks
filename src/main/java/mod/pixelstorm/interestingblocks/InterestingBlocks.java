@@ -117,11 +117,6 @@ public class InterestingBlocks implements ModInitializer
 							SkyboxBlockEntity::new,
 							(blockEntityType) -> SkyboxBlockEntity.blockEntityType = blockEntityType));
 
-		//items.add(registerBlockEntity("echo_block",
-		//					new EchoBlock(),
-		//					EchoBlockEntity::new,
-		//					(blockEntityType) -> EchoBlockEntity.blockEntityType = blockEntityType));
-
 		log(Level.INFO, "Registered " + items.size() + " blocks.");
 
 		return items;

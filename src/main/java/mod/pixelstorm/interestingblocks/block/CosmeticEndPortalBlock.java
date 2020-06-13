@@ -1,5 +1,6 @@
 package mod.pixelstorm.interestingblocks.block;
 
+import java.util.Random;
 import mod.pixelstorm.interestingblocks.block.entity.CosmeticEndPortalBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.BlockWithEntity;
@@ -41,19 +42,21 @@ public class CosmeticEndPortalBlock extends BlockWithEntity
 		if(!world.isClient)
 			return;
 
+		Random random = world.random;
+
 		for(int i = 0; i < 24; ++i)
 		{
 			// Spawn particles at random points within the block's bounds
-			double x = world.random.nextDouble();
-			double y = world.random.nextDouble();
-			double z = world.random.nextDouble();
+			double x = random.nextDouble();
+			double y = random.nextDouble();
+			double z = random.nextDouble();
 
 			double scalar = 0.2;
 
 			// Random velocities pointing away from block center
-			double velX = (x - 0.5) * world.random.nextDouble() * scalar;
-			double velY = (y - 0.5) * world.random.nextDouble() * scalar;
-			double velZ = (z - 0.5) * world.random.nextDouble() * scalar;
+			double velX = (x - 0.5) * random.nextDouble() * scalar;
+			double velY = (y - 0.5) * random.nextDouble() * scalar;
+			double velZ = (z - 0.5) * random.nextDouble() * scalar;
 
 			world.addParticle(ParticleTypes.SMOKE, x + pos.getX(), y + pos.getY(), z + pos.getZ(), velX, velY, velZ);
 		}

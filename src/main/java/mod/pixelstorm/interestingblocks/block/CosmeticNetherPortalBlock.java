@@ -62,19 +62,21 @@ public class CosmeticNetherPortalBlock extends TransparentBlock
 		if(!world.isClient)
 			return;
 
+		Random random = world.random;
+
 		for(int i = 0; i < 12; ++i)
 		{
 			// Spawn particles at random points within the block's bounds
-			double x = world.random.nextDouble();
-			double y = world.random.nextDouble();
-			double z = world.random.nextDouble();
+			double x = random.nextDouble();
+			double y = random.nextDouble();
+			double z = random.nextDouble();
 
 			double scalar = 0.05;
 
 			// Random velocities pointing away from block center
-			double velX = (x - 0.5) * world.random.nextDouble() * scalar;
-			double velY = (y - 0.5) * world.random.nextDouble() * scalar;
-			double velZ = (z - 0.5) * world.random.nextDouble() * scalar;
+			double velX = (x - 0.5) * random.nextDouble() * scalar;
+			double velY = (y - 0.5) * random.nextDouble() * scalar;
+			double velZ = (z - 0.5) * random.nextDouble() * scalar;
 
 			world.addParticle(ParticleTypes.DRAGON_BREATH, x + pos.getX(), y + pos.getY(), z + pos.getZ(), velX, velY, velZ);
 		}
