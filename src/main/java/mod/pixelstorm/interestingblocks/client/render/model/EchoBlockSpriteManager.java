@@ -43,30 +43,30 @@ public class EchoBlockSpriteManager
 														};
 
 	private static final int[][] PACKING_FLAGS =	{	// Value of 0 = should never be accessed
-														{ 0, 0, 1, 4, 8, 2 },
 														{ 0, 0, 4, 1, 8, 2 },
+														{ 0, 0, 4, 1, 8, 2 },
+														{ 4, 1, 0, 0, 2, 8 },
 														{ 4, 1, 0, 0, 8, 2 },
-														{ 1, 4, 0, 0, 8, 2 },
-														{ 1, 4, 8, 2, 0, 0 },
-														{ 4, 1, 8, 2, 0, 0 }
+														{ 4, 1, 8, 2, 0, 0 },
+														{ 4, 1, 2, 8, 0, 0 }
 													};
 
 	private static final int[][] DIAGONAL_PACKING_FLAGS =	{
-																{ 16, 32, 64, 128 },
 																{ 32, 16, 128, 64 },
-																{ 16, 32, 64, 128 },
 																{ 32, 16, 128, 64 },
-																{ 64, 128, 16, 32 },
-																{ 128, 64, 32, 16 }
+																{ 128, 64, 32, 16 },
+																{ 16, 32, 64, 128 },
+																{ 128, 64, 32, 16 },
+																{ 16, 32, 64, 128 }
 															};
 
-	private static final int[][] DIAGONAL_INDEXES =	{	// Value of 8 = should never be accessed
-														{ 8, 8, 1, 2, 2, 1 },
-														{ 8, 8, 0, 3, 3, 0 },
-														{ 1, 0, 8, 8, 3, 0 },
-														{ 2, 3, 8, 8, 2, 1 },
-														{ 2, 3, 3, 2, 8, 8 },
-														{ 1, 0, 0, 1, 8, 8 }
+	private static final int[][] DIAGONAL_INDEXES =	{	// Value of 9 = should never be accessed
+														{ 9, 9, 1, 2, 2, 1 },
+														{ 9, 9, 0, 3, 3, 0 },
+														{ 1, 0, 9, 9, 3, 0 },
+														{ 2, 3, 9, 9, 2, 1 },
+														{ 2, 3, 3, 2, 9, 9 },
+														{ 1, 0, 0, 1, 9, 9 }
 													};
 
 	private static final SpriteIdentifier[] SPRITE_IDENTIFIERS =
