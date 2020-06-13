@@ -1,0 +1,20 @@
+{
+	"type" : "minecraft:crafting_shaped",
+	"pattern" : [
+		"PPP",
+		"PGP",
+		"PPP"
+	],
+	"key" : {
+		"P" : {
+			"item" : "minecraft:prismarine"
+		},
+		"G" : {
+			"item" : "minecraft:ghast_tear"
+		}
+	},
+	"result" : {
+		"item" : "interesting_blocks:echo_block",
+		"count" : 8
+	}
+}
