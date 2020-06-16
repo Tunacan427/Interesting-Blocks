@@ -13,6 +13,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.Matrix4f;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Direction;
@@ -20,7 +21,11 @@ import net.minecraft.util.math.Direction;
 @Environment(EnvType.CLIENT)
 public class SkyboxBlockEntityRenderer extends BlockEntityRenderer<SkyboxBlockEntity>
 {
-	public static final RenderLayer SKYBOX_RENDERLAYER = RenderLayer.of("skybox", VertexFormats.POSITION_COLOR, 7, 256, RenderLayer.MultiPhaseParameters.builder().texture(new RenderPhase.Texture(SkyboxBlockTexture.ID, false, false)).texturing(new SkyboxTexturing()).build(false));
+	public static final RenderLayer SKYBOX_RENDERLAYER = RenderLayer.of("skybox", VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, 7, 2097152,
+																		RenderLayer.MultiPhaseParameters.builder()
+																		.texture(new RenderPhase.Texture(SkyboxBlockTexture.ID, false, false))
+																		.texturing(new SkyboxTexturing())
+																		.build(false));
 
 	public SkyboxBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher)
 	{

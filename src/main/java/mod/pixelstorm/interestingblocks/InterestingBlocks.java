@@ -59,7 +59,7 @@ public class InterestingBlocks implements ModInitializer
 
 	private List<ItemStack> registerBlocks()
 	{
-		List<ItemStack> items = new ArrayList<ItemStack>(20);
+		List<ItemStack> items = new ArrayList<ItemStack>(43);
 
 		items.add(registerBlock("inverted/black", new InvertedBlock()));
 		items.add(registerBlock("inverted/blue", new InvertedBlock()));
@@ -106,16 +106,17 @@ public class InterestingBlocks implements ModInitializer
 
 		items.add(registerBlock("cosmetic_nether_portal_block", new CosmeticNetherPortalBlock()));
 		items.add(registerBlock("echo_block", new EchoBlock()));
+		items.add(registerBlock("skybox_block", new SkyboxBlock()));
 
 		items.add(registerBlockEntity("cosmetic_end_portal_block",
 							new CosmeticEndPortalBlock(),
 							CosmeticEndPortalBlockEntity::new,
 							(blockEntityType) -> CosmeticEndPortalBlockEntity.blockEntityType = blockEntityType));
 
-		items.add(registerBlockEntity("skybox_block",
-							new SkyboxBlock(),
-							SkyboxBlockEntity::new,
-							(blockEntityType) -> SkyboxBlockEntity.blockEntityType = blockEntityType));
+		//items.add(registerBlockEntity("skybox_block",
+		//					new SkyboxBlock(),
+		//					SkyboxBlockEntity::new,
+		//					(blockEntityType) -> SkyboxBlockEntity.blockEntityType = blockEntityType));
 
 		log(Level.INFO, "Registered " + items.size() + " blocks.");
 

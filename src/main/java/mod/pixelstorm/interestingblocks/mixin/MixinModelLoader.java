@@ -1,7 +1,11 @@
 package mod.pixelstorm.interestingblocks.mixin;
 
+import java.util.function.Function;
+import java.util.HashMap;
+import java.util.Map;
 import mod.pixelstorm.interestingblocks.InterestingBlocks;
 import mod.pixelstorm.interestingblocks.client.render.model.EchoBlockUnbakedModel;
+import mod.pixelstorm.interestingblocks.client.render.model.SkyboxBlockUnbakedModel;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvType;
 import net.minecraft.client.util.ModelIdentifier;
@@ -16,11 +20,22 @@ import org.apache.logging.log4j.Level;
 @Mixin(ModelLoader.class)
 public class MixinModelLoader
 {
-	private static final ModelIdentifier ECHO_BLOCK_ID = new ModelIdentifier(InterestingBlocks.MOD_ID + ":echo_block#");
+	private static final Map<ModelIdentifier, Function<UnbakedModel, UnbakedModel>> MODEL_MAP = new HashMap<ModelIdentifier, Function<UnbakedModel, UnbakedModel>>();
+
+	static
+	{
+		MODEL_MAP.put(new ModelIdentifier(InterestingBlocks.MOD_ID + ":echo_block#"), EchoBlockUnbakedModel::new);
+		//MODEL_MAP.put(new ModelIdentifier(InterestingBlocks.MOD_ID + ":skybox_block#"), SkyboxBlockUnbakedModel::new);
+	}
 
 	@ModifyVariable(method = "addModel", at = @At("STORE"))
 	private UnbakedModel modifyUnbakedModel(UnbakedModel model, ModelIdentifier modelId)
 	{
-		return ECHO_BLOCK_ID.equals(modelId) ? new EchoBlockUnbakedModel(model) : model;
+		Function<UnbakedModel, UnbakedModel> modelGetter = MODEL_MAP.get(modelId);
+
+		if(modelGetter == null)
+			return model;
+
+		return modelGetter.apply(model);
 	}
 }

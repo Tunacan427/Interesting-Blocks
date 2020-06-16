@@ -36,8 +36,8 @@ public class MixinBuiltinModelItemRenderer
 			}
 			else if(block == Registry.BLOCK.get(new Identifier(InterestingBlocks.MOD_ID, "skybox_block")))
 			{
-				SkyboxBlockEntityRenderer.renderBlock(matrix, vertexConsumerProvider, (direction) -> true);
-				callbackInfo.cancel();
+				//SkyboxBlockEntityRenderer.renderBlock(matrix, vertexConsumerProvider, (direction) -> true);
+				//callbackInfo.cancel();
 			}
 		}
 	}

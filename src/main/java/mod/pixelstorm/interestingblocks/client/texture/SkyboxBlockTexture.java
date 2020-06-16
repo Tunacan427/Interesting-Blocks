@@ -7,14 +7,18 @@ import net.fabricmc.api.EnvType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.texture.AbstractTexture;
+import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.Window;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
+import org.apache.logging.log4j.Level;
 
 @Environment(EnvType.CLIENT)
 public class SkyboxBlockTexture extends AbstractTexture
 {
-	public static final Identifier ID = new Identifier(InterestingBlocks.MOD_ID, "textures/special/skybox_block.png");
+	public static final Identifier ID = new Identifier(InterestingBlocks.MOD_ID, "special/skybox_block");
+	public static final SpriteIdentifier SPRITE_ID = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEX, ID);
 
 	private static final SkyboxBlockTexture INSTANCE = new SkyboxBlockTexture();
 
@@ -26,7 +30,10 @@ public class SkyboxBlockTexture extends AbstractTexture
 	}
 
 	@Override
-	public void load(ResourceManager manager) { }
+	public void load(ResourceManager manager)
+	{
+		InterestingBlocks.log(Level.INFO, "Loading SkyboxBlockTexture");
+	}
 
 	public Framebuffer getFramebuffer()
 	{

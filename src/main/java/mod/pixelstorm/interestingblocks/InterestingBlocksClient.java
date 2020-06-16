@@ -3,10 +3,12 @@ package mod.pixelstorm.interestingblocks;
 import java.util.function.Function;
 import mod.pixelstorm.interestingblocks.InterestingBlocks;
 import mod.pixelstorm.interestingblocks.client.render.block.entity.*;
+import mod.pixelstorm.interestingblocks.client.texture.SkyboxBlockTexture;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvType;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
@@ -24,10 +26,11 @@ public class InterestingBlocksClient implements ClientModInitializer
 	public void onInitializeClient()
 	{
 		registerBlockEntityRenderer("cosmetic_end_portal_block", CosmeticEndPortalBlockEntityRenderer::new);
-		registerBlockEntityRenderer("skybox_block", SkyboxBlockEntityRenderer::new);
+		//registerBlockEntityRenderer("skybox_block", SkyboxBlockEntityRenderer::new);
 
 		BlockRenderLayerMap.INSTANCE.putBlock(Registry.BLOCK.get(new Identifier(InterestingBlocks.MOD_ID, "cosmetic_nether_portal_block")), RenderLayer.getTranslucent());
 		BlockRenderLayerMap.INSTANCE.putBlock(Registry.BLOCK.get(new Identifier(InterestingBlocks.MOD_ID, "echo_block")), RenderLayer.getTranslucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(Registry.BLOCK.get(new Identifier(InterestingBlocks.MOD_ID, "skybox_block")), SkyboxBlockEntityRenderer.SKYBOX_RENDERLAYER);
 
 		InterestingBlocks.log(Level.INFO, "Finished client initialization.");
 	}

@@ -1,5 +1,6 @@
 {
+	"parent" : "interesting_blocks:block/unshaded",
 	"textures" : {
-		"particle" : "interesting_blocks:particle/sky"
+		"all" : "interesting_blocks:particle/sky"
 	}
 }

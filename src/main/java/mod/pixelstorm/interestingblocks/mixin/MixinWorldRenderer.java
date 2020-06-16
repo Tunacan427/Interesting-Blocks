@@ -1,29 +1,72 @@
 package mod.pixelstorm.interestingblocks.mixin;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+import java.util.Arrays;
+import java.nio.ByteBuffer;
+import mod.pixelstorm.interestingblocks.InterestingBlocks;
+import mod.pixelstorm.interestingblocks.client.render.block.entity.SkyboxBlockEntityRenderer;
 import mod.pixelstorm.interestingblocks.client.texture.SkyboxBlockTexture;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
+import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.LightmapTextureManager;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.WorldRenderer;
+import net.minecraft.client.util.math.Matrix4f;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.apache.logging.log4j.Level;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WorldRenderer.class)
-public class MixinWorldRenderer
+public abstract class MixinWorldRenderer
 {
+	@Shadow
+	abstract void renderLayer(RenderLayer renderLayer, MatrixStack matrixStack, double d, double e, double f);
+
 	@Inject(method = "render", at = @At(value = "INVOKE_STRING", target = "net/minecraft/util/profiler/Profiler.swap(Ljava/lang/String;)V", args = { "ldc=fog" }))
-	private void render(CallbackInfo callbackInfo)
+	private void onRender(CallbackInfo callbackInfo)
 	{
 		Framebuffer buffer = MinecraftClient.getInstance().getFramebuffer();
+
 		buffer.endWrite();
+		//buffer.beginRead();
+
+		//GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, buffer.fbo);
+
+		//NativeImage image = new NativeImage(NativeImage.Format.RGBA, buffer.textureWidth, buffer.textureHeight, true);
+		//Long pointer = ((MixinNativeImage) image).getPointer();
+
+		//ByteBuffer outBuffer = ByteBuffer.allocateDirect(buffer.textureWidth * buffer.textureHeight * 4);
+		//GlStateManager.readPixels(0, 0, buffer.textureWidth, buffer.textureHeight, GL11.GL_RGBA, GL11.GL_BYTE, pointer);
+		//outBuffer.rewind();
+
+		//NativeImage image = NativeImage.read(outBuffer);
+
+		//Sprite sprite = new Sprite(null, new Info(SkyboxBlockTexture.ID, buffer.textureWidth, buffer.textureHeight, null), 0, 1, 1, 0, 0, image);
+
 		blitFramebuffer(buffer, SkyboxBlockTexture.getInstance().getFramebuffer());
+		//GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, 0);
+
+		//buffer.endRead();
 		buffer.beginWrite(true);
+	}
+
+	@Inject(method = "render", at = @At(value = "INVOKE", target = "net/minecraft/client/render/WorldRenderer.renderLayer(Lnet/minecraft/client/render/RenderLayer;Lnet/minecraft/client/util/math/MatrixStack;DDD)V", ordinal = 0))
+	private void onRenderLayer(MatrixStack matrices, float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, CallbackInfo callbackInfo)
+	{
+		Vec3d vector = camera.getPos();
+		renderLayer(SkyboxBlockEntityRenderer.SKYBOX_RENDERLAYER, matrices, vector.getX(), vector.getY(), vector.getZ());
 	}
 
 	private void blitFramebuffer(Framebuffer from, Framebuffer to)
