@@ -19,7 +19,7 @@ import net.minecraft.util.registry.Registry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
-import org.apache.logging.log4j.Level;
+
 @Environment(EnvType.CLIENT)
 public class InterestingBlocksClient implements ClientModInitializer
 {
@@ -35,8 +35,6 @@ public class InterestingBlocksClient implements ClientModInitializer
 		putBlockRenderLayer("skybox_block", SkyboxBlockTexture.RENDERLAYER);
 
 		putItemRenderLayer("skybox_block", SkyboxBlockTexture.RENDERLAYER);
-
-		InterestingBlocks.log(Level.INFO, "Finished client initialization.");
 	}
 
 	public static void putItemRenderLayer(Item item, RenderLayer layer)
@@ -51,16 +49,16 @@ public class InterestingBlocksClient implements ClientModInitializer
 
 	private <E extends BlockEntity> void registerBlockEntityRenderer(String identifier, Function<BlockEntityRenderDispatcher, BlockEntityRenderer<E>> blockEntityRenderer)
 	{
-		BlockEntityRendererRegistry.INSTANCE.register((BlockEntityType<E>) Registry.BLOCK_ENTITY_TYPE.get(new Identifier(InterestingBlocks.MOD_ID, identifier)), blockEntityRenderer);
+		BlockEntityRendererRegistry.INSTANCE.register((BlockEntityType<E>) Registry.BLOCK_ENTITY_TYPE.get(InterestingBlocks.getId(identifier)), blockEntityRenderer);
 	}
 
 	private void putBlockRenderLayer(String identifier, RenderLayer layer)
 	{
-		BlockRenderLayerMap.INSTANCE.putBlock(Registry.BLOCK.get(new Identifier(InterestingBlocks.MOD_ID, identifier)), layer);
+		BlockRenderLayerMap.INSTANCE.putBlock(Registry.BLOCK.get(InterestingBlocks.getId(identifier)), layer);
 	}
 
 	private void putItemRenderLayer(String identifier, RenderLayer layer)
 	{
-		putItemRenderLayer(Registry.ITEM.get(new Identifier(InterestingBlocks.MOD_ID, identifier)), layer);
+		putItemRenderLayer(Registry.ITEM.get(InterestingBlocks.getId(identifier)), layer);
 	}
 }

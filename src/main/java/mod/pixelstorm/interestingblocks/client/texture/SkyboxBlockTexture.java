@@ -18,7 +18,7 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 public class SkyboxBlockTexture extends AbstractTexture
 {
-	public static final Identifier ID = new Identifier(InterestingBlocks.MOD_ID, "special/skybox_block");
+	public static final Identifier ID = InterestingBlocks.getId("special/skybox_block");
 
 	public static final RenderLayer RENDERLAYER = RenderLayer.of("skybox", VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, 7, 2097152,
 																			RenderLayer.MultiPhaseParameters.builder()

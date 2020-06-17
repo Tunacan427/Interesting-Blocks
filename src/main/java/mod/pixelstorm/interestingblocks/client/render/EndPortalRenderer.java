@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
-import mod.pixelstorm.interestingblocks.InterestingBlocks;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvType;
 import net.minecraft.client.render.RenderLayer;
@@ -12,7 +11,6 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.Matrix4f;
 import net.minecraft.client.util.math.MatrixStack;
-import org.apache.logging.log4j.Level;
 
 @Environment(EnvType.CLIENT)
 public class EndPortalRenderer

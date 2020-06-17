@@ -20,7 +20,7 @@ import net.minecraft.world.BlockView;
 @Environment(EnvType.CLIENT)
 public class EchoBlockSpriteManager
 {
-	private static final Block ECHO_BLOCK = Registry.BLOCK.get(new Identifier(InterestingBlocks.MOD_ID, "echo_block"));
+	private static final Block ECHO_BLOCK = Registry.BLOCK.get(InterestingBlocks.getId("echo_block"));
 
 	private static final Direction[] DIRECTIONS = Direction.values();
 
@@ -162,7 +162,7 @@ public class EchoBlockSpriteManager
 
 	private static SpriteIdentifier getSpriteIdentifier(String from)
 	{
-		return new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEX, new Identifier(InterestingBlocks.MOD_ID, "block/echo/" + from));
+		return new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEX, InterestingBlocks.getId("block/echo/" + from));
 	}
 
 	private static void cacheAllSprites()

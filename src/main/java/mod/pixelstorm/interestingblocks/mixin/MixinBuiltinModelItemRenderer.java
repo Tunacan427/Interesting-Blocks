@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BuiltinModelItemRenderer.class)
 public class MixinBuiltinModelItemRenderer
 {
-	private static final Item END_PORTAL_ITEM = Registry.ITEM.get(new Identifier(InterestingBlocks.MOD_ID, "cosmetic_end_portal_block"));
+	private static final Item END_PORTAL_ITEM = Registry.ITEM.get(InterestingBlocks.getId("cosmetic_end_portal_block"));
 
 	@Inject(method = "render", at = @At("HEAD"), cancellable = true)
 	private void render(ItemStack itemStack, MatrixStack matrix, VertexConsumerProvider vertexConsumerProvider, int light, int overlay, CallbackInfo callbackInfo)

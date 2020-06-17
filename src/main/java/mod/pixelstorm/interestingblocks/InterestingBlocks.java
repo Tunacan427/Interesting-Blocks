@@ -51,7 +51,7 @@ public class InterestingBlocks implements ModInitializer
 		else
 			log(Level.INFO, "Registering itemgroup '" + identifier + "' with " + items.size() + " items.");
 
-		return FabricItemGroupBuilder.create(new Identifier(MOD_ID, identifier))
+		return FabricItemGroupBuilder.create(getId(identifier))
 											.icon(() -> icon)
 											.appendItems(stacks -> stacks.addAll(items))
 											.build();
@@ -120,10 +120,10 @@ public class InterestingBlocks implements ModInitializer
 
 	private ItemStack registerBlock(String identifier, Block block)
 	{
-		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, identifier), block);
+		Registry.register(Registry.BLOCK, getId(identifier), block);
 
 		BlockItem blockItem = new BlockItem(block, new Item.Settings());
-		Registry.register(Registry.ITEM, new Identifier(MOD_ID, identifier), blockItem);
+		Registry.register(Registry.ITEM, getId(identifier), blockItem);
 
 		return new ItemStack(blockItem);
 	}
@@ -131,22 +131,57 @@ public class InterestingBlocks implements ModInitializer
 	private <T extends BlockEntity> ItemStack registerBlockEntity(String identifier, Block block, Supplier<? extends T> blockEntitySupplier, Consumer<BlockEntityType> blockEntityConsumer)
 	{
 		// Register Block
-		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, identifier), block);
+		Registry.register(Registry.BLOCK, getId(identifier), block);
 
 		// Register BlockEntity
-		BlockEntityType blockEntityType = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, identifier), BlockEntityType.Builder.create(blockEntitySupplier, block).build(null));
+		BlockEntityType blockEntityType = Registry.register(Registry.BLOCK_ENTITY_TYPE, getId(identifier), BlockEntityType.Builder.create(blockEntitySupplier, block).build(null));
 
 		blockEntityConsumer.accept(blockEntityType);
 
 		// Instantiate and register BlockItem
 		BlockItem blockItem = new BlockItem(block, new Item.Settings());
-		Registry.register(Registry.ITEM, new Identifier(MOD_ID, identifier), blockItem);
+		Registry.register(Registry.ITEM, getId(identifier), blockItem);
 
 		return new ItemStack(blockItem);
+	}
+
+	public static Identifier getId(String id)
+	{
+		return new Identifier(MOD_ID, id);
 	}
 
 	public static void log(Level level, String message)
 	{
 		LOGGER.log(level, "["+MOD_NAME+"] " + message);
+	}
+
+	public static void logFatal(String message)
+	{
+		log(Level.FATAL, message);
+	}
+
+	public static void logError(String message)
+	{
+		log(Level.ERROR, message);
+	}
+
+	public static void logWarn(String message)
+	{
+		log(Level.WARN, message);
+	}
+
+	public static void logInfo(String message)
+	{
+		log(Level.INFO, message);
+	}
+
+	public static void logDebug(String message)
+	{
+		log(Level.DEBUG, message);
+	}
+
+	public static void logTrace(String message)
+	{
+		log(Level.TRACE, message);
 	}
 }
