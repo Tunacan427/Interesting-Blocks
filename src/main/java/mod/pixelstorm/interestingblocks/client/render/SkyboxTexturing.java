@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 @Environment(EnvType.CLIENT)
 public class SkyboxTexturing extends RenderPhase.Texturing
 {
-	public static final FloatBuffer buffer = GlAllocationUtils.allocateFloatBuffer(4);
+	private static final FloatBuffer buffer = GlAllocationUtils.allocateFloatBuffer(4);
 
 	public SkyboxTexturing()
 	{
@@ -53,7 +53,7 @@ public class SkyboxTexturing extends RenderPhase.Texturing
 		);
 	}
 
-	public static FloatBuffer getBuffer(float a, float b, float c, float d)
+	private static FloatBuffer getBuffer(float a, float b, float c, float d)
 	{
 		((Buffer) buffer).clear();
 		buffer.put(a).put(b).put(c).put(d);

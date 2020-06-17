@@ -4,8 +4,7 @@ import java.util.function.Function;
 import java.util.HashMap;
 import java.util.Map;
 import mod.pixelstorm.interestingblocks.InterestingBlocks;
-import mod.pixelstorm.interestingblocks.client.render.model.EchoBlockUnbakedModel;
-import mod.pixelstorm.interestingblocks.client.render.model.SkyboxBlockUnbakedModel;
+import mod.pixelstorm.interestingblocks.client.render.model.*;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvType;
 import net.minecraft.client.util.ModelIdentifier;
@@ -14,7 +13,6 @@ import net.minecraft.client.render.model.UnbakedModel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.apache.logging.log4j.Level;
 
 @Environment(EnvType.CLIENT)
 @Mixin(ModelLoader.class)
@@ -25,7 +23,6 @@ public class MixinModelLoader
 	static
 	{
 		MODEL_MAP.put(new ModelIdentifier(InterestingBlocks.MOD_ID + ":echo_block#"), EchoBlockUnbakedModel::new);
-		//MODEL_MAP.put(new ModelIdentifier(InterestingBlocks.MOD_ID + ":skybox_block#"), SkyboxBlockUnbakedModel::new);
 	}
 
 	@ModifyVariable(method = "addModel", at = @At("STORE"))

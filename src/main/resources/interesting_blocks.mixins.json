@@ -7,9 +7,8 @@
 		"MixinBuiltinModelItemRenderer",
 		"MixinMinecraftClient",
 		"MixinModelLoader",
-		"MixinNativeImage",
 		"MixinRenderLayer",
-		"MixinTextureManager",
+		"MixinRenderLayers",
 		"MixinWorldRenderer"
 	],
 	"server" : [],

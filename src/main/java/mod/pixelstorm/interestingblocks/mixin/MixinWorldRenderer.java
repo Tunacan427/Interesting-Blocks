@@ -1,10 +1,6 @@
 package mod.pixelstorm.interestingblocks.mixin;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import java.util.Arrays;
-import java.nio.ByteBuffer;
-import mod.pixelstorm.interestingblocks.InterestingBlocks;
-import mod.pixelstorm.interestingblocks.client.render.block.entity.SkyboxBlockEntityRenderer;
 import mod.pixelstorm.interestingblocks.client.texture.SkyboxBlockTexture;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvType;
@@ -25,7 +21,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.apache.logging.log4j.Level;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WorldRenderer.class)
@@ -40,25 +35,9 @@ public abstract class MixinWorldRenderer
 		Framebuffer buffer = MinecraftClient.getInstance().getFramebuffer();
 
 		buffer.endWrite();
-		//buffer.beginRead();
-
-		//GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, buffer.fbo);
-
-		//NativeImage image = new NativeImage(NativeImage.Format.RGBA, buffer.textureWidth, buffer.textureHeight, true);
-		//Long pointer = ((MixinNativeImage) image).getPointer();
-
-		//ByteBuffer outBuffer = ByteBuffer.allocateDirect(buffer.textureWidth * buffer.textureHeight * 4);
-		//GlStateManager.readPixels(0, 0, buffer.textureWidth, buffer.textureHeight, GL11.GL_RGBA, GL11.GL_BYTE, pointer);
-		//outBuffer.rewind();
-
-		//NativeImage image = NativeImage.read(outBuffer);
-
-		//Sprite sprite = new Sprite(null, new Info(SkyboxBlockTexture.ID, buffer.textureWidth, buffer.textureHeight, null), 0, 1, 1, 0, 0, image);
 
 		blitFramebuffer(buffer, SkyboxBlockTexture.getInstance().getFramebuffer());
-		//GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, 0);
 
-		//buffer.endRead();
 		buffer.beginWrite(true);
 	}
 
@@ -66,15 +45,15 @@ public abstract class MixinWorldRenderer
 	private void onRenderLayer(MatrixStack matrices, float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, CallbackInfo callbackInfo)
 	{
 		Vec3d vector = camera.getPos();
-		renderLayer(SkyboxBlockEntityRenderer.SKYBOX_RENDERLAYER, matrices, vector.getX(), vector.getY(), vector.getZ());
+		renderLayer(SkyboxBlockTexture.RENDERLAYER, matrices, vector.getX(), vector.getY(), vector.getZ());
 	}
 
-	private void blitFramebuffer(Framebuffer from, Framebuffer to)
+	private static void blitFramebuffer(Framebuffer from, Framebuffer to)
 	{
-		GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, from.fbo);
-		GL30.glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, to.fbo);
+		GlStateManager.bindFramebuffer(GL30.GL_READ_FRAMEBUFFER, from.fbo);
+		GlStateManager.bindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, to.fbo);
 		GL30.glBlitFramebuffer(0, 0, from.textureWidth, from.textureHeight, 0, 0, to.textureWidth, to.textureHeight, GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT, GL11.GL_NEAREST);
-		GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, 0);
-		GL30.glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, 0);
+		GlStateManager.bindFramebuffer(GL30.GL_READ_FRAMEBUFFER, 0);
+		GlStateManager.bindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, 0);
 	}
 }
