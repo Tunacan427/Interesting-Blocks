@@ -32,11 +32,11 @@ public class InterestingBlocks implements ModInitializer
 	@Override
 	public void onInitialize()
 	{
-		log(Level.INFO, "Starting initialization.");
+		logInfo("Starting initialization.");
 
 		registerItemGroup("cosmetic", registerBlocks(), 16);
 
-		log(Level.INFO, "Finished initialization.");
+		logInfo("Finished initialization.");
 	}
 
 	private ItemGroup registerItemGroup(String identifier, List<ItemStack> items, int iconIndex)
@@ -47,9 +47,9 @@ public class InterestingBlocks implements ModInitializer
 	private ItemGroup registerItemGroup(String identifier, List<ItemStack> items, ItemStack icon)
 	{
 		if(items.isEmpty())
-			log(Level.WARN, "Itemgroup '" + identifier + "' recieved no items!");
+			logWarn("Itemgroup '" + identifier + "' recieved no items!");
 		else
-			log(Level.INFO, "Registering itemgroup '" + identifier + "' with " + items.size() + " items.");
+			logInfo("Registering itemgroup '" + identifier + "' with " + items.size() + " items.");
 
 		return FabricItemGroupBuilder.create(getId(identifier))
 											.icon(() -> icon)
@@ -113,7 +113,7 @@ public class InterestingBlocks implements ModInitializer
 							CosmeticEndPortalBlockEntity::new,
 							(blockEntityType) -> CosmeticEndPortalBlockEntity.blockEntityType = blockEntityType));
 
-		log(Level.INFO, "Registered " + items.size() + " blocks.");
+		logInfo("Registered " + items.size() + " blocks.");
 
 		return items;
 	}
