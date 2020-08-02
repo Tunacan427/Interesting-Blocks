@@ -59,7 +59,7 @@ public class InterestingBlocks implements ModInitializer
 
 	private List<ItemStack> registerBlocks()
 	{
-		List<ItemStack> items = new ArrayList<ItemStack>(43);
+		List<ItemStack> items = new ArrayList<>(43);
 
 		items.add(registerBlock("inverted/black", new InvertedBlock()));
 		items.add(registerBlock("inverted/blue", new InvertedBlock()));

@@ -13,9 +13,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(RenderLayer.class)
 public class MixinRenderLayer
 {
-	@Redirect(method = "getBlockLayers", at = @At(value = "INVOKE", target = "com/google/common/collect/ImmutableList.of(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/google/common/collect/ImmutableList;"))
-	private static ImmutableList redirectBlockLayers(Object solid, Object cutoutMipped, Object cutout, Object translucent)
+	@Redirect(method = "getBlockLayers", at = @At(value = "INVOKE", target = "com/google/common/collect/ImmutableList.of(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/google/common/collect/ImmutableList;"))
+	private static ImmutableList redirectBlockLayers(Object solid, Object cutoutMipped, Object cutout, Object translucent, Object tripwire)
 	{
-		return ImmutableList.of(solid, cutoutMipped, cutout, translucent, SkyboxBlockTexture.RENDERLAYER);
+		return ImmutableList.of(solid, cutoutMipped, cutout, translucent, tripwire, SkyboxBlockTexture.RENDERLAYER);
 	}
 }

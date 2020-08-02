@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(ModelLoader.class)
 public class MixinModelLoader
 {
-	private static final Map<ModelIdentifier, Function<UnbakedModel, UnbakedModel>> MODEL_MAP = new HashMap<ModelIdentifier, Function<UnbakedModel, UnbakedModel>>();
+	private static final Map<ModelIdentifier, Function<UnbakedModel, UnbakedModel>> MODEL_MAP = new HashMap<>();
 
 	static
 	{

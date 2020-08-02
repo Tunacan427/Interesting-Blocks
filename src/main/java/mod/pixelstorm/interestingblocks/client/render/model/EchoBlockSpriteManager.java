@@ -1,21 +1,21 @@
 package mod.pixelstorm.interestingblocks.client.render.model;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
 import mod.pixelstorm.interestingblocks.InterestingBlocks;
-import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 @Environment(EnvType.CLIENT)
 public class EchoBlockSpriteManager
@@ -121,7 +121,7 @@ public class EchoBlockSpriteManager
 
 	private static final Sprite[] SPRITES = new Sprite[256];
 
-	private static Map<BlockPos, Sprite[]> states = new HashMap<BlockPos, Sprite[]>();
+	private static Map<BlockPos, Sprite[]> states = new HashMap<>();
 
 	private static Function<SpriteIdentifier, Sprite> spriteGetter;
 

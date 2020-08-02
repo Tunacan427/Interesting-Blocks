@@ -33,6 +33,6 @@ public class InvertedBlock extends Block
 	@Environment(EnvType.CLIENT)
 	public boolean isSideInvisible(BlockState state, BlockState neighbor, Direction facing)
 	{
-		return (neighbor.getBlock() instanceof InvertedBlock) ? true : super.isSideInvisible(state, neighbor, facing);
+		return (neighbor.getBlock() instanceof InvertedBlock) || super.isSideInvisible(state, neighbor, facing);
 	}
 }

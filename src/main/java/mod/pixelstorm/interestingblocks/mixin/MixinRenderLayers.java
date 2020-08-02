@@ -5,7 +5,6 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvType;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,9 +17,9 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public class MixinRenderLayers
 {
 	@Inject(method = "getItemLayer", locals = LocalCapture.CAPTURE_FAILHARD, at = @At(value = "INVOKE_ASSIGN", target = "net/minecraft/item/ItemStack.getItem()Lnet/minecraft/item/Item;"), cancellable = true)
-	private static void onGetItemLayer(ItemStack stack, CallbackInfoReturnable callbackInfo, Item item)
+	private static void onGetItemLayer(ItemStack stack, boolean bl, CallbackInfoReturnable<RenderLayer> callbackInfo)
 	{
-		RenderLayer itemLayer = InterestingBlocksClient.getItemRenderLayer(item);
+		RenderLayer itemLayer = InterestingBlocksClient.getItemRenderLayer(stack.getItem());
 		if(itemLayer != null)
 			callbackInfo.setReturnValue(itemLayer);
 	}
